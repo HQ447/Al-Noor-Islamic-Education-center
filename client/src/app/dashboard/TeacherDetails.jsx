@@ -34,7 +34,6 @@ function TeacherDetails() {
   const BASE_URL = "https://noor-ul-quran-backend-gq68.onrender.com";
   const token = localStorage.getItem("token");
 
-  // Background decorative elements
   const FloatingElements = () => (
     <div className="fixed inset-0 overflow-hidden pointer-events-none">
       <div className="absolute w-20 h-20 rounded-full top-20 left-10 bg-emerald-200/20 blur-xl animate-bounce"></div>

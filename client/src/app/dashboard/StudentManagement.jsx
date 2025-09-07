@@ -355,7 +355,7 @@ const StudentManagement = () => {
     );
   }
 
-  // No students found states
+  
   if (!loading && filteredStudents.length === 0) {
     return (
       <div className="p-6 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50">
