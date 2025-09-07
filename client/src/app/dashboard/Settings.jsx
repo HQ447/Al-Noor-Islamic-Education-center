@@ -114,7 +114,6 @@ const Setting = () => {
       </div>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-3 md:gap-6">
-        {/* Profile Info */}
         <div className="p-4 border shadow-lg bg-white/80 backdrop-blur-sm rounded-xl md:p-6 border-emerald-200/20">
           <h3 className="mb-4 text-base font-semibold md:text-lg text-emerald-800">
             Profile Information
