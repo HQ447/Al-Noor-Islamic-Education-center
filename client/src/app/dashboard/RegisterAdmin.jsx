@@ -188,7 +188,6 @@ export default function RegisterAdmin() {
               </div>
             </div>
 
-            {/* Admin Secret Field */}
             <div>
               <label
                 htmlFor="secret"
