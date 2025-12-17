@@ -43,7 +43,6 @@ app.use(express.json());
 //   })
 // );
 
-import cors from "cors";
 
 // ✅ Allowed frontend domains
 const allowedOrigins = [
