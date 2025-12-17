@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Menu, X, User, LogOut } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { isTokenExpired } from "../../utils/authUtils";
-import logoImage from "../assets/logo1.png";
+import logoImage from "../assets/logo2.png";
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -60,8 +60,12 @@ function Navbar() {
                 className="rounded-full w-9 h-9 md:w-13 md:h-13"
               />
               <NavLink to={"/"} className="flex flex-col">
-                <h1 className="text-[16px] font-bold text-gray-800 sm:text-base lg:text-xl">
-                  Al Noor Islamic Center
+                <h1 className="text-[16px] flex  font-bold text-gray-800 sm:text-base lg:text-xl">
+                  Al Noor{" "}
+                  <span className="hidden md:flex md:ms-2">
+                    {" "}
+                    Islamic Education Center
+                  </span>
                 </h1>
                 <p className=" text-[8px] md:text-[10px] text-gray-600 sm:block sm:text-xs">
                   Distance Learning Academy

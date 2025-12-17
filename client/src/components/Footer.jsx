@@ -6,7 +6,7 @@ import {
   FaXTwitter,
 } from "react-icons/fa6";
 import { NavLink } from "react-router";
-import logo from "../assets/logo1.png";
+import logo from "../assets/logo2.png";
 
 export default function Footer() {
   const [courses, setCourses] = useState([]);
@@ -39,10 +39,10 @@ export default function Footer() {
             className="object-contain w-32 h-32 mx-auto bg-transparent md:mx-0"
           />
           <p className="mt-4 text-sm text-justify text-gray-300">
-            <strong>Noor Islamic Center</strong> offers personalized, one-on-one
-            online Quran classes with certified male and female tutors. Learn
-            Quran with Tajweed, Hifz, and Islamic studies from the comfort of
-            your home.
+            <strong>Al Noor Islamic Education Center</strong> offers
+            personalized, one-on-one online Quran classes with certified male
+            and female tutors. Learn Quran with Tajweed, Hifz, and Islamic
+            studies from the comfort of your home.
           </p>
         </div>
 
