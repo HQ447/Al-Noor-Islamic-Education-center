@@ -65,7 +65,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
               🕮
             </div>
             <div className="">
-              <h1 className="text-lg font-bold text-white">Noor ul Quran</h1>
+              <h1 className="text-lg font-bold text-white">Al Noor</h1>
               <p className="text-xs text-emerald-200">Dashboard Panel</p>
             </div>
           </div>
