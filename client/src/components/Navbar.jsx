@@ -61,7 +61,7 @@ function Navbar() {
               />
               <NavLink to={"/"} className="flex flex-col">
                 <h1 className="text-[16px] font-bold text-gray-800 sm:text-base lg:text-xl">
-                  Noor Islamic Center
+                  Al Noor Islamic Center
                 </h1>
                 <p className=" text-[8px] md:text-[10px] text-gray-600 sm:block sm:text-xs">
                   Distance Learning Academy

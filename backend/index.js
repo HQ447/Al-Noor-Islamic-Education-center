@@ -43,24 +43,34 @@ app.use(express.json());
 //   })
 // );
 
-// ✅ Enable CORS for all main requests
+import cors from "cors";
+
+// ✅ Allowed frontend domains
+const allowedOrigins = [
+  "https://islamic-center-beta.vercel.app",
+  "https://www.alnooredu.online",
+  "https://alnooredu.online",
+];
+
 app.use(
   cors({
-    origin: ["https://islamic-center-beta.vercel.app"],
+    origin: function (origin, callback) {
+      // allow requests with no origin (like Postman)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
 
-// ✅ Enable CORS for preflight (OPTIONS) requests
-app.options(
-  "*",
-  cors({
-    origin: ["https://islamic-center-beta.vercel.app"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
+// ✅ Preflight requests
+app.options("*", cors());
 
 process.on("uncaughtException", (err) => {
   console.error("Uncaught Exception:", err);
