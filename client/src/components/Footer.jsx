@@ -133,7 +133,7 @@ export default function Footer() {
 
       {/* Middle Footer */}
       <div className="flex justify-center gap-1 px-3 py-4 text-xs text-center text-gray-400 bg-black ">
-        © 2026 Al Noor Islamic Center. All rights reserved. Designed by{" "}
+        © 2026 <b>alnooredu.online</b> All rights reserved. Designed by{" "}
         <a
           href="https://hamadahmad.online"
           target="_blank"
