@@ -47,26 +47,25 @@ app.use(express.json());
 // ✅ Allowed frontend domains
 const allowedOrigins = [
   "https://islamic-center-beta.vercel.app",
-  "https://www.alnooredu.online",
-  "https://alnooredu.online"
+  "https://alnooredu.online",
+  "https://www.alnooredu.online"
 ];
 
 app.use(
   cors({
-    origin: function (origin, callback) {
-      // allow requests with no origin (like Postman)
-      if (!origin) return callback(null, true);
-
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true); // Postman, server
+      const lowerOrigin = origin.toLowerCase();
+      const isAllowed = allowedOrigins.some(o => o.toLowerCase() === lowerOrigin);
+      if (isAllowed) return callback(null, true);
+      callback(new Error(`Not allowed by CORS: ${origin}`));
     },
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
+
+
 
 // ✅ Preflight requests
 app.options("*", cors());
