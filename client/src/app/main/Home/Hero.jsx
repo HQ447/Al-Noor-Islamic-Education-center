@@ -37,7 +37,7 @@ const Hero = () => {
       accent: "from-purple-500 to-indigo-600",
     },
     {
-      url: "https://alhudaislamiccentre.com/wp-content/uploads/2022/09/c3.png",
+      url: "https://thumbs.dreamstime.com/b/close-up-open-quran-intricate-calligraphy-natural-lighting-detailed-beautifully-illuminated-soft-side-captured-373291452.jpg",
       title: "Islamic Jurisprudence",
       subtitle: "Understand Fiqh and Islamic law deeply",
       icon: Shield,
@@ -51,7 +51,7 @@ const Hero = () => {
       accent: "from-green-500 to-emerald-600",
     },
     {
-      url: "https://alhudaislamiccentre.com/wp-content/uploads/2022/09/c1.png",
+      url: "https://cdn.pixabay.com/photo/2021/03/22/14/46/quran-6114872_1280.jpg",
       title: "Prophetic Studies",
       subtitle: "Learn from the Sunnah and Hadith",
       icon: Crown,

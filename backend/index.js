@@ -48,8 +48,7 @@ app.use(express.json());
 const allowedOrigins = [
   "https://islamic-center-beta.vercel.app",
   "https://www.alnooredu.online",
-  "https://alnooredu.online",
-  "http://localhost:5173"
+  "https://alnooredu.online"
 ];
 
 app.use(

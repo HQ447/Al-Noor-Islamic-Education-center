@@ -170,7 +170,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
           </NavLink>
         </nav>
 
-        <div className="absolute bottom-7 md:bottom-4 left-4 right-4 md:block lg:block">
+        <div className="absolute bottom-10 md:bottom-4 left-4 right-4 md:block lg:block">
           <div className="p-3 text-center rounded-lg bg-emerald-700/50">
             <Moon className="w-6 h-6 mx-auto mb-2 text-emerald-200" />
             <p className="text-xs text-emerald-200">اللَّهُمَّ بَارِكْ لَنَا</p>

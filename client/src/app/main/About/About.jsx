@@ -291,7 +291,7 @@ function About() {
                                   <img
                                     src={member.img}
                                     alt={member.name}
-                                    className="object-cover transition-shadow rounded-full shadow-lg group-hover:shadow-xl"
+                                    className="object-cover w-16 h-16 transition-shadow rounded-full shadow-lg md:w-20 md:h-20 group-hover:shadow-xl"
                                   />
                                 </div>
                               ) : (

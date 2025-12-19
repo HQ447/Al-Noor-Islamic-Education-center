@@ -3,6 +3,11 @@ import { Menu, X, User, LogOut } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { isTokenExpired } from "../../utils/authUtils";
 import logoImage from "../assets/logo2.png";
+import { AiFillHome, AiFillBook, AiFillInfoCircle, AiFillDollarCircle } from 'react-icons/ai';
+import { IoLibrary, IoCall } from 'react-icons/io5';
+
+
+
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -193,29 +198,50 @@ function Navbar() {
               </button>
             </div>
 
-            {/* Navigation Links */}
-            <div className="py-2">
-              {[
-                { to: "", label: "Home", icon: "🏠" },
-                { to: "courses", label: "Courses", icon: "📚" },
-                { to: "about", label: "About", icon: "ℹ️" },
-                { to: "fee", label: "Fee Plan", icon: "💰" },
-                { to: "library", label: "Library", icon: "📖" },
-                { to: "contact", label: "Contact", icon: "📞" },
-              ].map((link) => (
-                <NavLink
-                  key={link.to}
-                  onClick={closeMobileMenu}
-                  to={link.to}
-                  className="flex items-center gap-4 px-4 py-3 mx-4 my-1 font-medium text-gray-700 transition-all duration-200 rounded-lg hover:text-emerald-700 hover:bg-emerald-50 active:bg-emerald-100 group"
-                >
-                  <span className="text-lg transition-transform duration-200 group-hover:scale-110">
-                    {link.icon}
-                  </span>
-                  <span className="font-semibold">{link.label}</span>
-                </NavLink>
-              ))}
-            </div>
+         
+
+
+{/* Navigation Links */}
+<div className="py-2 space-y-1">
+  {[
+    { to: "", label: "Home", icon: AiFillHome },
+    { to: "courses", label: "Courses", icon: AiFillBook },
+    { to: "about", label: "About", icon: AiFillInfoCircle },
+    { to: "fee", label: "Fee Plan", icon: AiFillDollarCircle },
+    { to: "library", label: "Library", icon: IoLibrary },
+    { to: "contact", label: "Contact", icon: IoCall },
+  ].map((link) => {
+    const IconComponent = link.icon;
+    return (
+      <NavLink
+        key={link.to}
+        onClick={closeMobileMenu}
+        to={link.to}
+        className={({ isActive }) =>
+          `flex items-center gap-4 px-4 py-3 mx-4 my-1 font-medium transition-all duration-300 rounded-xl group relative overflow-hidden ${
+            isActive
+              ? "text-white bg-gradient-to-r from-emerald-600 to-emerald-500 shadow-lg shadow-emerald-500/30"
+              : "text-gray-700 hover:text-emerald-700 hover:bg-gradient-to-r hover:from-emerald-50 hover:to-green-50 active:scale-[0.98]"
+          }`
+        }
+      >
+        {/* Animated background gradient on hover */}
+        <span className="absolute inset-0 bg-gradient-to-r from-emerald-400/0 via-emerald-400/10 to-emerald-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></span>
+        
+        {/* Icon with enhanced animation */}
+        <IconComponent className="relative text-xl transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 group-active:scale-95" />
+        
+        {/* Label with subtle slide effect */}
+        <span className="relative font-semibold tracking-wide transition-transform duration-300 group-hover:translate-x-1">
+          {link.label}
+        </span>
+        
+        {/* Active indicator line */}
+        <span className="absolute left-0 w-1 h-8 transition-all duration-300 bg-white rounded-r-full opacity-0 group-hover:opacity-100"></span>
+      </NavLink>
+    );
+  })}
+</div>
 
             {/* Bottom Section */}
             <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-gray-100 bg-gray-50">

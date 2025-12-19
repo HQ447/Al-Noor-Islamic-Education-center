@@ -168,19 +168,15 @@ function TeacherDetail() {
                   className="object-cover border-4 border-white rounded-full shadow-lg w-22 h-22 md:w-32 md:h-32"
                 />
               </div> */}
-              <div className="p-1 transition-all duration-300 rounded-full w-22 h-22 md:w-32 md:h-32 group-hover:scale-105">
-                {/* <img
-                              src={developer}
-                              alt="Developer Profile"
-                              className="object-cover w-full h-full border-4 border-white rounded-full shadow-lg"
-                            /> */}
+              <div className="p-1 transition-all duration-300 rounded-full group-hover:scale-105">
+                
                 <div className="">
                   {teacher.img ? (
                     <div className="p-1 rounded-full bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500">
                       <img
                         src={teacher.img}
                         alt={teacher.name}
-                        className="object-cover transition-shadow rounded-full shadow-lg group-hover:shadow-xl"
+                        className="object-cover w-20 h-20 transition-shadow rounded-full shadow-lg md:w-28 md:h-28 group-hover:shadow-xl"
                       />
                     </div>
                   ) : (

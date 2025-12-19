@@ -318,7 +318,7 @@ const Courses = () => {
                   </div>
 
                   {/* Enhanced Content Section */}
-                  <div className="relative z-10 px-6 py-6">
+                  <div className="relative z-10 px-4 py-6">
                     {/* Title with better typography */}
                     <div className="mb-2">
                       <h3 className="mb-2 text-lg font-bold leading-tight text-gray-900 transition-colors line-clamp-2 group-hover:text-emerald-700">
@@ -333,11 +333,11 @@ const Courses = () => {
                     <div className="py-2 my-3 border rounded-xl bg-gradient-to-r from-emerald-50/60 to-teal-50/60 border-emerald-100/60">
                       <div className="grid grid-cols-2 gap-4">
                         <div className="flex items-center gap-2">
-                          <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-blue-600">
+                          <div className="flex items-center justify-center rounded-full w-7 h-7 bg-gradient-to-br from-blue-500 to-blue-600">
                             <Clock className="w-4 h-4 text-white" />
                           </div>
                           <div>
-                            <p className="text-xs font-medium tracking-wide text-gray-500 uppercase">
+                            <p className="text-[10px] font-medium tracking-wide text-gray-500 uppercase">
                               Duration
                             </p>
                             <p className="text-xs font-bold text-gray-900">
@@ -347,11 +347,11 @@ const Courses = () => {
                         </div>
 
                         <div className="flex items-center gap-2">
-                          <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-purple-600">
+                          <div className="flex items-center justify-center rounded-full w-7 h-7 bg-gradient-to-br from-purple-500 to-purple-600">
                             <Users className="w-4 h-4 text-white" />
                           </div>
                           <div>
-                            <p className="text-xs font-medium tracking-wide text-gray-500 uppercase">
+                            <p className="text-[10px] font-medium tracking-wide text-gray-500 uppercase">
                               Students
                             </p>
                             <p className="text-xs font-bold text-gray-900">
@@ -388,7 +388,7 @@ const Courses = () => {
                       </div>
                     </button>
                   </div>
-                  <div className="mb-3 border-t border-emerald-100/60">
+                  <div className="px-4 mb-3 border-t border-emerald-100/60">
                     <div className="flex items-center justify-center gap-4 text-xs text-gray-500">
                       <span className="flex items-center gap-1">
                         <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
