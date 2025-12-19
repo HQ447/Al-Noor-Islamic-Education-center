@@ -1,11 +1,9 @@
 import User from "../models/User.js";
-// controllers/authController.js
 import sendEmail from "../utils/sendEmail.js";
 
 const registerStudent = async (req, res) => {
   try {
-    const { name, email, whatsapp, country, course, joinDate, teacherId } =
-      req.body;
+    const { name, email, whatsapp, country, course, joinDate, teacherId } = req.body;
 
     // Basic validation
     if (!name || !email || !course) {
@@ -18,12 +16,12 @@ const registerStudent = async (req, res) => {
       return res.status(409).json({ message: "Email already registered." });
     }
 
+    // Find teacher
     const findTeacher = await User.findById(teacherId);
+    if (!findTeacher) return res.status(404).json({ message: "Teacher not found" });
+    const teacherName = findTeacher.name || "Instructor";
 
-    if (!findTeacher) return res.json("Teacher Not found");
-
-    const teacherName = findTeacher.name;
-
+    // Create new student
     const newStudent = new User({
       name,
       email,
@@ -38,34 +36,42 @@ const registerStudent = async (req, res) => {
 
     await newStudent.save();
 
+    // Build email
     const emailHTML = `
-  <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-    <!-- Header -->
-    <div style="background-color: #004225; color: #ffffff; padding: 20px; text-align: center;">
-      <h1 style="margin: 0; font-size: 24px;">Al Noor Islamic Education Center</h1>
-      <p style="margin: 5px 0 0; font-size: 14px;">Distance Learning Platform</p>
-    </div>
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
+        <div style="background-color: #004225; color: #ffffff; padding: 20px; text-align: center;">
+          <h1 style="margin: 0; font-size: 24px;">Al Noor Islamic Education Center</h1>
+          <p style="margin: 5px 0 0; font-size: 14px;">Distance Learning Platform</p>
+        </div>
+        <div style="padding: 30px;">
+          <h2 style="color: #333;">Hi ${name},</h2>
+          <p style="font-size: 16px; color: #555;">
+            Your registration application has been submitted with our instructor <strong>${teacherName}</strong>.
+          </p>
+          <p style="font-size: 16px; color: #555;">
+            We will inform you once it is approved by an instructor. Thank you for joining Noor Islamic Center.
+          </p>
+        </div>
+        <div style="background-color: #f9f9f9; padding: 15px; text-align: center; font-size: 12px; color: #888;">
+          &copy; ${new Date().getFullYear()} Noor Islamic Center. All rights reserved.
+        </div>
+      </div>
+    `;
 
-    <!-- Body -->
-    <div style="padding: 30px;">
-      <h2 style="color: #333;">Hi ${name},</h2>
-      <p style="font-size: 16px; color: #555;">
-        Your registration application has been submitted with our instructor <span style="font-weight:bold;">${teacherName}</span>.
-      </p>
-      <p style="font-size: 16px; color: #555;">
-        We will inform you once it is approved by an instructor. Thank you for joining Noor Islamic Center.
-      </p>
-    </div>
+    // DEBUG: log all variables
+    console.log("Registration Email Debug:");
+    console.log("To:", email);
+    console.log("Name:", name);
+    console.log("Teacher:", teacherName);
+    console.log("HTML length:", emailHTML.length);
 
-    <!-- Footer -->
-    <div style="background-color: #f9f9f9; padding: 15px; text-align: center; font-size: 12px; color: #888;">
-      &copy; ${new Date().getFullYear()} Noor Islamic Center. All rights reserved.
-    </div>
-  </div>
-`;
-console.log("Sending registration email to:", email);
-await sendEmail(email, "Request For Registration", emailHTML);
-console.log("Registration email sent");
+    // Send email and catch full Resend error
+    try {
+      const response = await sendEmail(email, "Request For Registration", emailHTML);
+      console.log("Registration email sent:", response);
+    } catch (emailError) {
+      console.error("Resend email failed:", emailError.response || emailError);
+    }
 
     res.status(201).json({
       message: "Student registered successfully.",
