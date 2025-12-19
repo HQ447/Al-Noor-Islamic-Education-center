@@ -1,27 +1,19 @@
-// utils/sendEmail.js
-import nodemailer from "nodemailer";
 import dotenv from "dotenv";
-dotenv.config();
+dotenv.config(); // MUST be at the top
+
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const sendEmail = async (to, subject, htmlContent) => {
   try {
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
-
-    const mailOptions = {
-      from: `"Noor Islamic Center" <${process.env.EMAIL_USER}>`,
+    const data = await resend.emails.send({
+      from: "Al Noor Islamic Education Center <onboarding@resend.dev>",
       to,
       subject,
       html: htmlContent,
-    };
-
-    const info = await transporter.sendMail(mailOptions);
-    return info;
+    });
+    return data;
   } catch (error) {
     console.error("Email sending failed:", error);
     throw new Error("Email sending failed");

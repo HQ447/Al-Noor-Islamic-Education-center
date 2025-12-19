@@ -8,6 +8,7 @@ export default function Forgot() {
   const navigate = useNavigate();
   const BASE_URL = `https://noor-ul-quran-backend-gq68.onrender.com`;
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
