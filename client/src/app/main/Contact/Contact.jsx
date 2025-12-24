@@ -56,8 +56,8 @@ function Contact() {
     {
       icon: Mail,
       title: "Email Us",
-      primary: "info@noorislamiccenter.com",
-      secondary: "support@noorislamiccenter.com",
+      primary: "alnoorisledu@gmail.com",
+      secondary: "alnoorisledu@gmail.com",
       description: "Send us an email anytime",
     },
     {
