@@ -21,44 +21,19 @@ function Fee() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [pathname]);
   const plans = [
-    {
-      id: "weekly",
-      name: "Weekly Plan",
-      description: "Perfect for trying out our courses",
-      price: {
-        weekly: 25,
-        monthly: 89,
-        yearly: 899,
-      },
-      originalPrice: {
-        weekly: 35,
-        monthly: 120,
-        yearly: 1200,
-      },
-      popular: false,
-      features: [
-        "2 Classes per week",
-        "1-on-1 Teaching",
-        "Basic Course Materials",
-        "Email Support",
-        "Progress Tracking",
-      ],
-      badge: "Great Start",
-      icon: Clock,
-      color: "from-blue-500 to-blue-600",
-    },
+    
     {
       id: "monthly",
-      name: "Monthly Plan",
+      name: "Online Quran Course",
       description: "Most popular choice for regular learning",
       price: {
         weekly: 30,
-        monthly: 79,
+        monthly: 60,
         yearly: 799,
       },
       originalPrice: {
         weekly: 40,
-        monthly: 110,
+        monthly: 90,
         yearly: 1100,
       },
       popular: true,
@@ -75,11 +50,11 @@ function Fee() {
     },
     {
       id: "yearly",
-      name: "Yearly Plan",
+      name: "Arabic Learning ",
       description: "Best value for serious learners",
       price: {
         weekly: 35,
-        monthly: 69,
+        monthly: 70,
         yearly: 699,
       },
       originalPrice: {
@@ -204,7 +179,7 @@ function Fee() {
       </section>
 
       {/* Pricing Cards */}
-      <section className="py-16 bg-white">
+      <section className="flex items-center justify-center py-16 bg-white">
         <div className="px-6 mx-auto max-w-7xl lg:px-12">
           <div className="grid gap-8 lg:grid-cols-3">
             {plans.map((plan, index) => {
@@ -262,7 +237,8 @@ function Fee() {
                       </div>
                       <div className="inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold text-red-800 bg-red-100 rounded-full">
                         <Gift className="w-4 h-4" />
-                        {discount}% OFF
+                        Fee is Negotiable
+                       
                       </div>
                     </div>
 

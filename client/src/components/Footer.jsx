@@ -96,7 +96,7 @@ export default function Footer() {
           </h2>
           <div className="flex justify-center gap-4 text-xl">
             <a
-              href="#"
+              href="https://www.facebook.com/share/1BaNjFt7GP/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
@@ -104,7 +104,7 @@ export default function Footer() {
               <FaFacebook />
             </a>
             <a
-              href="#"
+              href="https://www.facebook.com/share/1BaNjFt7GP/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Twitter"
@@ -112,7 +112,7 @@ export default function Footer() {
               <FaXTwitter />
             </a>
             <a
-              href="#"
+              href="https://www.facebook.com/share/1BaNjFt7GP/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
@@ -120,7 +120,7 @@ export default function Footer() {
               <FaInstagram />
             </a>
             <a
-              href="#"
+              href="https://www.facebook.com/share/1BaNjFt7GP/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="YouTube"
