@@ -23,7 +23,8 @@ import {
   AlertCircle,
   RefreshCw,
 } from "lucide-react";
-
+import * as XLSX from "xlsx";
+import { FaFileDownload } from "react-icons/fa";
 // Islamic Pattern Component
 const IslamicPattern = () => (
   <div className="absolute inset-0 pointer-events-none opacity-5">
@@ -237,6 +238,44 @@ const StudentManagement = () => {
     return matchesSearch && matchesStatus;
   });
 
+  const exportToExcel = (data) => {
+    // Map data and format joinDate
+    const formattedData = data.map((item) => ({
+      Name: item.name,
+      Email: item.email,
+      Country: item.country,
+      Course: item.course,
+      Role: item.role,
+      Status: item.status,
+      "Fee Status": item.feeStatus,
+      "Join Date": new Date(item.joinDate).toISOString().split("T")[0],
+      WhatsApp: item.whatsapp,
+      Teacher: item.teacherName,
+    }));
+
+    // Create a worksheet
+    const worksheet = XLSX.utils.json_to_sheet(formattedData);
+
+    // Auto-adjust column widths
+    const columnWidths = Object.keys(formattedData[0]).map((key) => ({
+      wch:
+        Math.max(
+          key.length,
+          ...formattedData.map((row) =>
+            row[key] ? row[key].toString().length : 0
+          )
+        ) + 2, // +2 for padding
+    }));
+    worksheet["!cols"] = columnWidths;
+
+    // Create workbook and append worksheet
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Students");
+
+    // Export
+    XLSX.writeFile(workbook, "students.xlsx");
+  };
+
   // Loading state
   if (loading) {
     return (
@@ -249,7 +288,7 @@ const StudentManagement = () => {
             <div className="flex items-center gap-3 mb-3">
               <div>
                 <h2 className="text-xl font-bold text-transparent md:text-2xl bg-gradient-to-r from-green-700 to-emerald-800 bg-clip-text">
-                  Your Students
+                  Your Students 
                 </h2>
                 <div className="flex items-center gap-2 mt-1">
                   <Sparkles className="w-4 h-4 text-green-500" />
@@ -273,7 +312,7 @@ const StudentManagement = () => {
                 Pending
               </button>
             </div>
-            <div className="relative">
+            {/* <div className="relative">
               <Search className="absolute w-4 h-4 transform -translate-y-1/2 left-3 top-1/2 text-emerald-500" />
               <input
                 type="text"
@@ -281,7 +320,7 @@ const StudentManagement = () => {
                 className="w-full py-2 pl-10 pr-4 text-sm border rounded-lg border-emerald-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 md:w-auto"
                 disabled
               />
-            </div>
+            </div> */}
             <button className="flex items-center px-3 py-2 text-sm transition-colors rounded-lg text-emerald-800 bg-emerald-100 hover:bg-emerald-200">
               <Grid className="w-4 h-4 mr-2" />
               Grid View
@@ -355,7 +394,6 @@ const StudentManagement = () => {
     );
   }
 
-  
   if (!loading && filteredStudents.length === 0) {
     return (
       <div className="p-6 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50">
@@ -367,7 +405,7 @@ const StudentManagement = () => {
             <div className="flex items-center gap-3 mb-3">
               <div>
                 <h2 className="text-xl font-bold text-transparent md:text-2xl bg-gradient-to-r from-green-700 to-emerald-800 bg-clip-text">
-                  Your Students
+                  Your Students 
                 </h2>
                 <div className="flex items-center gap-2 mt-1">
                   <Sparkles className="w-4 h-4 text-green-500" />
@@ -412,11 +450,12 @@ const StudentManagement = () => {
                 Pending
               </button>
             </div>
+              
             <div className="relative">
               <Search className="absolute w-4 h-4 transform -translate-y-1/2 left-3 top-1/2 text-emerald-500" />
               <input
                 type="text"
-                placeholder="Search students..."
+                placeholder="Search"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full py-2 pl-10 pr-4 text-sm border rounded-lg border-emerald-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 md:w-auto"
@@ -522,6 +561,14 @@ const StudentManagement = () => {
             >
               Pending
             </button>
+            <button
+                onClick={() => {
+                  exportToExcel(students);
+                }}
+                className={`px-3 py-2 flex justify-center items-center text-sm rounded-lg transition-colors bg-emerald-700 text-white`}
+              >
+                <FaFileDownload className="w-4 h-4 mr-2" /> Export
+              </button>
           </div>
           <div className="relative">
             <Search className="absolute w-4 h-4 transform -translate-y-1/2 left-3 top-1/2 text-emerald-500" />

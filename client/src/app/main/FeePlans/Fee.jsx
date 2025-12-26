@@ -381,38 +381,7 @@ function Fee() {
         </div>
       </section>
 
-      {/* Money Back Guarantee */}
-      <section className="py-16 text-white bg-gradient-to-r from-green-600 to-emerald-600">
-        <div className="max-w-4xl px-6 mx-auto text-center lg:px-12">
-          <div className="mb-8">
-            <div className="inline-flex items-center justify-center w-20 h-20 mb-6 bg-white rounded-full bg-opacity-20">
-              <Gift className="w-10 h-10 text-white" />
-            </div>
-            <h2 className="mb-4 text-2xl font-bold md:text-3xl lg:text-4xl">
-              30-Day Money Back Guarantee
-            </h2>
-            <p className="max-w-2xl mx-auto mb-8 text-sm text-green-100">
-              We're confident you'll love our teaching approach. If you're not
-              completely satisfied within 30 days, we'll provide a full refund.
-            </p>
-          </div>
 
-          <div className="flex flex-col justify-center gap-4 sm:flex-row">
-            <NavLink
-              to={"/register-student"}
-              className="px-8 py-2 font-semibold text-green-600 transition-colors bg-white rounded-lg shadow-lg md:py-3 hover:bg-gray-100"
-            >
-              Start Free Trial
-            </NavLink>
-            <NavLink
-              to={"/contact"}
-              className="px-8 py-2 font-semibold text-white transition-colors border-2 rounded-lg md:py-4 bg-emerald-500 hover:bg-emerald-600 border-emerald-400"
-            >
-              Contact Sales Team
-            </NavLink>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

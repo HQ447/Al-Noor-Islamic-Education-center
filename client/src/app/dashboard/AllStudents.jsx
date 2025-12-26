@@ -18,7 +18,8 @@ import {
   Grid,
   Table,
 } from "lucide-react";
-
+import { FaFileDownload } from "react-icons/fa";
+import * as XLSX from "xlsx";
 const BASE_URL = "https://noor-ul-quran-backend-gq68.onrender.com";
 
 // Islamic Pattern Component
@@ -188,6 +189,10 @@ const AllStudents = () => {
     fetchStudents();
   }, []);
 
+
+
+
+
   const handleApprove = async (studentId) => {
     try {
       const res = await fetch(`${BASE_URL}/admin/updateStatus/${studentId}`, {
@@ -283,6 +288,42 @@ const AllStudents = () => {
     return matchesSearch && matchesStatus;
   });
 
+
+ const exportToExcel = (data) => {
+  // Map data and format joinDate
+  const formattedData = data.map((item) => ({
+    Name: item.name,
+    Email: item.email,
+    Country: item.country,
+    Course: item.course,
+    Role: item.role,
+    Status: item.status,
+    "Fee Status": item.feeStatus,
+    "Join Date": new Date(item.joinDate).toISOString().split("T")[0],
+    WhatsApp: item.whatsapp,
+    Teacher: item.teacherName,
+  }));
+
+  // Create a worksheet
+  const worksheet = XLSX.utils.json_to_sheet(formattedData);
+
+  // Auto-adjust column widths
+  const columnWidths = Object.keys(formattedData[0]).map((key) => ({
+    wch: Math.max(
+      key.length,
+      ...formattedData.map((row) => (row[key] ? row[key].toString().length : 0))
+    ) + 2, // +2 for padding
+  }));
+  worksheet["!cols"] = columnWidths;
+
+  // Create workbook and append worksheet
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Students");
+
+  // Export
+  XLSX.writeFile(workbook, "students.xlsx");
+};
+
   return (
     <div className="p-6 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50">
       <IslamicPattern />
@@ -338,6 +379,14 @@ const AllStudents = () => {
               }`}
             >
               Pending
+            </button>
+            <button
+              onClick={() => {
+                exportToExcel(students)
+              }}
+              className={`px-3 py-2 flex justify-center items-center text-sm rounded-lg transition-colors bg-emerald-700 text-white`}
+            >
+              <FaFileDownload className="w-4 h-4 mr-2" /> Export
             </button>
           </div>
           <div className="relative">

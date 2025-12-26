@@ -70,8 +70,8 @@ function Contact() {
     {
       icon: MapPin,
       title: "Visit Us",
-      primary: "123 Islamic Center St.",
-      secondary: "Islamad, Pakistan",
+      primary: "Islamabad",
+      secondary: " Pakistan",
       description: "Main Campus Location",
     },
     {
@@ -306,9 +306,9 @@ function Contact() {
                       Visit Our Campus
                     </h3>
                     <p className="text-sm text-gray-600">
-                      123 Islamic Center Street
+                      Islamabad
                     </p>
-                    <p className="text-sm text-gray-600">City, State 12345</p>
+                    <p className="text-sm text-gray-600">Pakistan</p>
                   </div>
                   {/* Decorative Elements */}
                   <div className="absolute w-8 h-8 bg-green-200 rounded-full top-4 right-4 opacity-60"></div>
