@@ -28,6 +28,9 @@ const userSchema = new mongoose.Schema(
       default: "pending",
     },
     feeStatus: { type: String, enum: ["clear", "unclear"], default: "unclear" },
+    feeEndDate: {
+      type: Date,
+    },
     otp: { type: Number },
     otpExpiry: { type: Date },
   },
