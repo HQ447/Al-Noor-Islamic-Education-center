@@ -121,7 +121,7 @@ const Books = () => {
   // Message states
   const [message, setMessage] = useState(null);
 
-  const BASE_URL = "https://noor-ul-quran-backend-gq68.onrender.com";
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   // Show message helper
   const showMessage = (type, text) => {

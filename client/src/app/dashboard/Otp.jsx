@@ -16,7 +16,7 @@ export default function Otp() {
     e.preventDefault();
     setLoading(true);
     setError("");
-    const BASE_URL = `https://noor-ul-quran-backend-gq68.onrender.com`;
+    const BASE_URL = import.meta.env.VITE_BASE_URL;
 
     try {
       const res = await fetch(`${BASE_URL}/auth/verify-otp`, {

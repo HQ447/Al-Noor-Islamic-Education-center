@@ -110,7 +110,7 @@ const CardSkeleton = () => (
 );
 
 const StudentManagement = () => {
-  const BASE_URL = "https://noor-ul-quran-backend-gq68.onrender.com";
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   const [searchTerm, setSearchTerm] = useState("");
   const [students, setStudents] = useState([]);
   const [viewMode, setViewMode] = useState("grid"); // table or grid

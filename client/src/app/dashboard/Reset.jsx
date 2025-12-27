@@ -14,7 +14,7 @@ export default function Reset() {
     e.preventDefault();
     setLoading(true); // Start loading
 
-    const BASE_URL = `https://noor-ul-quran-backend-gq68.onrender.com`;
+    const BASE_URL =import.meta.env.VITE_BASE_URL;
 
     if (password !== confirm) {
       alert("Passwords do not match");

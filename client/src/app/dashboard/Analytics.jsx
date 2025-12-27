@@ -48,7 +48,7 @@ const Analytics = () => {
   const [loading, setLoading] = useState(true);
   const name = localStorage.getItem("name");
   const role = localStorage.getItem("role");
-  const BASE_URL = "https://noor-ul-quran-backend-gq68.onrender.com";
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -194,7 +194,7 @@ const Analytics = () => {
         <div className="flex items-center gap-3 mb-3">
           <div>
             <h2 className="text-xl font-bold text-transparent md:text-2xl bg-gradient-to-r from-green-700 to-emerald-800 bg-clip-text">
-              Welcome {name.split(" ")[0]}
+              Welcome {name.split(" ")[0]} !
             </h2>
             <div className="flex items-center gap-2 mt-1">
               <Sparkles className="w-4 h-4 text-green-500" />
