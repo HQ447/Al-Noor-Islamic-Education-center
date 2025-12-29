@@ -9,7 +9,6 @@ backend/node_modules/
 
 # dotenv files
 *.env
-*.env.*
 
 # Build output
 frontend/build/
