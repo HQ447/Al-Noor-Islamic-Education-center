@@ -337,9 +337,9 @@ function StudentDetails() {
                     </button>
                   </div>
                   <div
-                    className={`text-xs  capitalize  text-emerald-800`}
+                    className={`text-xs    text-emerald-800`}
                   >
-                    Enter Days of Paid Fee
+                   How many days fee he want to Pay?
                   </div>
                 </div>}
                 <div

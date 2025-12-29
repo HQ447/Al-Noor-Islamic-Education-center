@@ -302,6 +302,7 @@ const AllStudents = () => {
     Status: item.status,
     "Fee Status": item.feeStatus,
     "Fee Paid Till":item.feeEndDate,
+    "Fee Plan (days)":item.feeDays,
     "Join Date": new Date(item.joinDate).toISOString().split("T")[0],
     WhatsApp: item.whatsapp,
     Teacher: item.teacherName,
