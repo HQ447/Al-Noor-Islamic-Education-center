@@ -27,10 +27,10 @@ const userSchema = new mongoose.Schema(
       enum: ["pending", "registered", "rejected"],
       default: "pending",
     },
-    feeStatus: { type: String, enum: ["clear", "unclear"], default: "unclear" },
     feeEndDate: {
       type: Date,
     },
+    feeDays: { type: Number } ,
     otp: { type: Number },
     otpExpiry: { type: Date },
   },

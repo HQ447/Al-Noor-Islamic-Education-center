@@ -23,18 +23,20 @@ import {
   Badge,
 } from "lucide-react";
 import { FaWhatsapp, FaDollarSign } from "react-icons/fa";
+import { IoCheckmarkDoneCircle } from "react-icons/io5";
 
 function StudentDetails() {
   const { id } = useParams();
   const [preview, setPreview] = useState(null);
   const [teacher, setTeacher] = useState({});
   const [students, setStudents] = useState([]);
+  const [days, setDays] = useState("0");
   const [loading, setLoading] = useState(true);
   const [selectedView, setSelectedView] = useState("overview");
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const token = localStorage.getItem("token");
 
-    const handleApprove = async (studentId) => {
+  const handleApprove = async (studentId) => {
     try {
       const res = await fetch(`${BASE_URL}/admin/updateStatus/${studentId}`, {
         method: "PUT",
@@ -53,7 +55,7 @@ function StudentDetails() {
               : student
           )
         );
-        fetchProfile()
+        fetchProfile();
       } else {
         console.error("Failed to update student status");
       }
@@ -69,7 +71,6 @@ function StudentDetails() {
       );
     }
   };
-
 
   const d = new Date();
   const monthName = d.toLocaleString("en-US", { month: "long" });
@@ -90,6 +91,10 @@ function StudentDetails() {
   );
 
   const updateFee = async (studentId) => {
+    if (!days) {
+      alert("Please enter days");
+      return;
+    }
     try {
       const res = await fetch(
         `${BASE_URL}/admin/updateStudentFee/${studentId}`,
@@ -99,6 +104,8 @@ function StudentDetails() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
+
+          body: JSON.stringify({ days }),
         }
       );
 
@@ -232,8 +239,8 @@ function StudentDetails() {
 
               {/* Basic Info */}
               <div className="flex-1 text-center lg:text-left">
-                <h1 className="mb-2 text-2xl font-bold lg:text-3xl">
-                  {enhancedTeacher.name || "Teacher Name"}
+                <h1 className="mb-2 text-2xl font-bold capitalize lg:text-3xl">
+                  {enhancedTeacher.name || "N/A"}
                 </h1>
                 <p className="mb-2 text-sm text-emerald-100"></p>
 
@@ -247,6 +254,21 @@ function StudentDetails() {
 
               {/* Quick Actions */}
               <div className="flex flex-col gap-3">
+                {teacher.status?.toLowerCase() === "pending" ? (
+                  <button
+                    onClick={() => handleApprove(id)}
+                    className="flex items-center gap-2 px-4 py-2 text-xs font-medium text-white transition-all duration-200 cursor-pointer md:px-6 md:py-3 bg-white/20 backdrop-blur-sm rounded-xl hover:bg-white/30"
+                  >
+                    <span>Approve Student</span>
+                  </button>
+                ) : (
+                  <div className="flex capitalize items-center gap-2 px-4 py-2 text-xs font-medium text-white transition-all duration-200 md:px-6 md:py-3 bg-emerald-600 backdrop-blur-sm rounded-xl ">
+                    <span className="flex justify-center gap-2 items-center">
+                      <IoCheckmarkDoneCircle className="w-5 h-5" />{" "}
+                      {teacher.status}
+                    </span>
+                  </div>
+                )}
                 <a
                   href={`https://wa.me/${enhancedTeacher.whatsapp}?text=Assalam O Alikum! I would like to discuss about teaching.`}
                   target="_blank"
@@ -256,28 +278,6 @@ function StudentDetails() {
                   <FaWhatsapp className="w-5 h-5" />
                   Contact
                 </a>
-
-                {teacher.status?.toLowerCase() === "pending" ? (
-                  <button
-                    onClick={() => handleApprove(id)}
-                    className="flex items-center gap-2 px-4 py-2 text-xs font-medium text-white transition-all duration-200 cursor-pointer md:px-6 md:py-3 bg-white/20 backdrop-blur-sm rounded-xl hover:bg-white/30"
-                  >
-                    <span>Approve Student</span>
-                  </button>
-                ) : teacher.feeStatus == "unclear" ? (
-                  <button
-                    onClick={() => updateFee(teacher._id)}
-                    className="flex items-center gap-2 px-4 py-2 text-xs font-medium text-white transition-all duration-200 cursor-pointer md:px-6 md:py-3 bg-white/20 backdrop-blur-sm rounded-xl hover:bg-white/30"
-                  >
-                    <FaDollarSign className="w-5 h-5" />
-                    Update Fee Status
-                  </button>
-                ) : (
-                  <div className="flex items-center gap-2 px-4 py-2 text-xs font-medium text-white transition-all duration-200 md:px-6 md:py-3 bg-white/20 backdrop-blur-sm rounded-xl hover:bg-white/30">
-                    <FaDollarSign className="w-5 h-5" />
-                    Fee Paid
-                  </div>
-                )}
               </div>
             </div>
           </div>
@@ -315,6 +315,33 @@ function StudentDetails() {
                 Fee Statistics
               </h3>
               <div className="space-y-6">
+                {teacher.feeStatus=="unclear" && 
+                <div className="flex flex-col items-center rounded-xl p-4 bg-gradient-to-r  from-emerald-100 to-emerald-100 ">
+                  
+                  <div
+                    className={` flex gap-2 text-center mb-2
+                  `}
+                  >
+                    <input
+                      type="number"
+                      className="flex outline-none items-center gap-2 w-full text-xs font-medium text-gray-700 transition-all duration-200 cursor-pointer px-6 py-3 bg-emerald-200 backdrop-blur-sm rounded-xl "
+                      placeholder="Enter days"
+                      onChange={(e) => setDays(e.target.value)}
+                    />
+                    <button
+                      onClick={() => updateFee(teacher._id)}
+                      className={` ${days==""?"bg-emerald-400":"bg-emerald-600 "} flex w-full items-center gap-2  text-xs font-medium text-white transition-all duration-200 cursor-pointer px-6 py-2 backdrop-blur-sm rounded-xl hover:bg-emerald-500`}
+                    >
+                      <FaDollarSign className="w-5 h-5" />
+                      Pay Fee
+                    </button>
+                  </div>
+                  <div
+                    className={`text-xs  capitalize  text-emerald-800`}
+                  >
+                    Enter Days of Paid Fee
+                  </div>
+                </div>}
                 <div
                   className={`p-4 text-center bg-gradient-to-r  ${
                     enhancedTeacher.feeStatus == "clear"
@@ -344,10 +371,10 @@ function StudentDetails() {
 
                 <div className="p-4 text-center bg-gradient-to-r from-blue-100 to-teal-100 rounded-xl">
                   <div className="mb-1 text-xl font-bold text-blue-800 ">
-                    {monthName}
+                    {teacher.feeDays || "0"} Days
                   </div>
                   <div className="text-sm font-medium text-blue-600">
-                    Fee Month
+                    Fee Paid 
                   </div>
                 </div>
 
