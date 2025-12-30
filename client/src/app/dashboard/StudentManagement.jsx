@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import * as XLSX from "xlsx";
 import { FaFileDownload } from "react-icons/fa";
+import { useNavigate } from "react-router";
 // Islamic Pattern Component
 const IslamicPattern = () => (
   <div className="absolute inset-0 pointer-events-none opacity-5">
@@ -110,7 +111,7 @@ const CardSkeleton = () => (
 );
 
 const StudentManagement = () => {
-  const BASE_URL = "https://noor-ul-quran-backend-gq68.onrender.com";
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   const [searchTerm, setSearchTerm] = useState("");
   const [students, setStudents] = useState([]);
   const [viewMode, setViewMode] = useState("grid"); // table or grid
@@ -118,6 +119,7 @@ const StudentManagement = () => {
   const [loadingStates, setLoadingStates] = useState({}); // Track loading for individual students
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const fetchStudents = async () => {
     setLoading(true);
@@ -134,9 +136,7 @@ const StudentManagement = () => {
       }
 
       const result = await response.json();
-      const studentList = Array.isArray(result)
-        ? result
-        : result.students || [];
+      const studentList = Array.isArray(result) ? result : result.result || [];
       setStudents(studentList);
     } catch (error) {
       console.error("Error fetching students:", error);
@@ -150,42 +150,42 @@ const StudentManagement = () => {
     fetchStudents();
   }, []);
 
-  const handleApprove = async (studentId) => {
-    // Set loading state for this specific student
-    setLoadingStates((prev) => ({ ...prev, [`approve_${studentId}`]: true }));
+  // const handleApprove = async (studentId) => {
+  //   // Set loading state for this specific student
+  //   setLoadingStates((prev) => ({ ...prev, [`approve_${studentId}`]: true }));
 
-    try {
-      const res = await fetch(`${BASE_URL}/admin/updateStatus/${studentId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify({ status: "registered" }),
-      });
+  //   try {
+  //     const res = await fetch(`${BASE_URL}/admin/updateStatus/${studentId}`, {
+  //       method: "PUT",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //       },
+  //       body: JSON.stringify({ status: "registered" }),
+  //     });
 
-      if (res.ok) {
-        setStudents((prev) =>
-          prev.map((student) =>
-            student._id === studentId || student.id === studentId
-              ? { ...student, status: "registered" }
-              : student
-          )
-        );
-      } else {
-        console.error("Failed to update student status");
-      }
-    } catch (error) {
-      console.error("Error updating student status:", error);
-    } finally {
-      // Remove loading state
-      setLoadingStates((prev) => {
-        const newState = { ...prev };
-        delete newState[`approve_${studentId}`];
-        return newState;
-      });
-    }
-  };
+  //     if (res.ok) {
+  //       setStudents((prev) =>
+  //         prev.map((student) =>
+  //           student._id === studentId || student.id === studentId
+  //             ? { ...student, status: "registered" }
+  //             : student
+  //         )
+  //       );
+  //     } else {
+  //       console.error("Failed to update student status");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error updating student status:", error);
+  //   } finally {
+  //     // Remove loading state
+  //     setLoadingStates((prev) => {
+  //       const newState = { ...prev };
+  //       delete newState[`approve_${studentId}`];
+  //       return newState;
+  //     });
+  //   }
+  // };
 
   const handleDeleteStudent = async (studentId) => {
     // Set loading state for this specific student
@@ -248,6 +248,8 @@ const StudentManagement = () => {
       Role: item.role,
       Status: item.status,
       "Fee Status": item.feeStatus,
+      "Fee Paid Till": item.feeEndDate,
+       "Fee Plan (days)":item.feeDays,
       "Join Date": new Date(item.joinDate).toISOString().split("T")[0],
       WhatsApp: item.whatsapp,
       Teacher: item.teacherName,
@@ -288,7 +290,7 @@ const StudentManagement = () => {
             <div className="flex items-center gap-3 mb-3">
               <div>
                 <h2 className="text-xl font-bold text-transparent md:text-2xl bg-gradient-to-r from-green-700 to-emerald-800 bg-clip-text">
-                  Your Students 
+                  Your Students
                 </h2>
                 <div className="flex items-center gap-2 mt-1">
                   <Sparkles className="w-4 h-4 text-green-500" />
@@ -405,7 +407,7 @@ const StudentManagement = () => {
             <div className="flex items-center gap-3 mb-3">
               <div>
                 <h2 className="text-xl font-bold text-transparent md:text-2xl bg-gradient-to-r from-green-700 to-emerald-800 bg-clip-text">
-                  Your Students 
+                  Your Students
                 </h2>
                 <div className="flex items-center gap-2 mt-1">
                   <Sparkles className="w-4 h-4 text-green-500" />
@@ -450,7 +452,7 @@ const StudentManagement = () => {
                 Pending
               </button>
             </div>
-              
+
             <div className="relative">
               <Search className="absolute w-4 h-4 transform -translate-y-1/2 left-3 top-1/2 text-emerald-500" />
               <input
@@ -562,13 +564,13 @@ const StudentManagement = () => {
               Pending
             </button>
             <button
-                onClick={() => {
-                  exportToExcel(students);
-                }}
-                className={`px-3 py-2 flex justify-center items-center text-sm rounded-lg transition-colors bg-emerald-700 text-white`}
-              >
-                <FaFileDownload className="w-4 h-4 mr-2" /> Export
-              </button>
+              onClick={() => {
+                exportToExcel(students);
+              }}
+              className={`px-3 py-2 flex justify-center items-center text-sm rounded-lg transition-colors bg-emerald-700 text-white`}
+            >
+              <FaFileDownload className="w-4 h-4 mr-2" /> Export
+            </button>
           </div>
           <div className="relative">
             <Search className="absolute w-4 h-4 transform -translate-y-1/2 left-3 top-1/2 text-emerald-500" />
@@ -714,13 +716,6 @@ const StudentManagement = () => {
                           <Trash2 className="text-xl text-red-600 transition-all cursor-pointer hover:scale-95" />
                         )}
                       </button>
-                      <a
-                        href={`https://wa.me/${student.whatsapp}?text=Assalam O Alikum ! Welcome to Noor ul Quran , How can we Help you?`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <MessageCircle className="text-xl font-bold text-green-600 transition-all cursor-pointer hover:scale-95" />
-                      </a>
                     </td>
                   </tr>
                 ))}
@@ -870,9 +865,9 @@ const StudentManagement = () => {
                         </span>
                         <span
                           className={`text-right font-semibold capitalize px-2 py-0.5 rounded-md text-xs ${
-                            student.feeStatus?.toLowerCase() === "paid"
+                            student.feeStatus?.toLowerCase() === "clear"
                               ? "text-emerald-800 bg-emerald-100"
-                              : student.feeStatus?.toLowerCase() === "pending"
+                              : student.feeStatus?.toLowerCase() === "unclear"
                               ? "text-amber-800 bg-amber-100"
                               : "text-slate-800 bg-slate-100"
                           }`}
@@ -886,7 +881,7 @@ const StudentManagement = () => {
 
                 {/* Action Buttons */}
                 <div className="space-y-3">
-                  {student.status?.toLowerCase() === "pending" && (
+                  {/* {student.status?.toLowerCase() === "pending" && (
                     <button
                       onClick={() => handleApprove(student._id)}
                       disabled={loadingStates[`approve_${student._id}`]}
@@ -904,19 +899,19 @@ const StudentManagement = () => {
                         </>
                       )}
                     </button>
-                  )}
+                  )} */}
 
                   <div className="grid grid-cols-2 gap-2">
-                    <a
-                      href={`https://wa.me/${student.whatsapp}?text=Assalam O Alikum ! Welcome to Noor ul Quran , How can we Help you?`}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <button
                       className="flex items-center justify-center gap-1.5 px-3 py-2.5 text-xs font-semibold text-white transition-all duration-200 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-xl shadow-md hover:from-emerald-700 hover:to-teal-700 hover:shadow-lg transform hover:scale-[1.02] active:scale-[0.98]"
+                      onClick={() =>
+                        navigate(
+                          `/admin-dashboard/student-detail/${student._id}`
+                        )
+                      }
                     >
-                      <MessageCircle className="w-3.5 h-3.5" />
-                      <span>WhatsApp</span>
-                    </a>
-
+                      View Details
+                    </button>
                     <button
                       onClick={() =>
                         handleDeleteStudent(student._id || student.id)

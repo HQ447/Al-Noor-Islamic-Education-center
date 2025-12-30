@@ -11,7 +11,7 @@ export default function RegisterAdmin() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordMatch, setPasswordMatch] = useState(true);
   const navigate = useNavigate();
-  const BASE_URL = `https://noor-ul-quran-backend-gq68.onrender.com`;
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   const handleSubmit = async (e) => {
     setLoading(true);

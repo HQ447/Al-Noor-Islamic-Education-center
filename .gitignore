@@ -9,7 +9,9 @@ backend/node_modules/
 
 # dotenv files
 *.env
-*.env.*
+
+# ...BUT ALLOW the client env file
+!client/.env
 
 # Build output
 frontend/build/

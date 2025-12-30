@@ -31,7 +31,7 @@ function TeacherDetails() {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedView, setSelectedView] = useState("overview");
-  const BASE_URL = "https://noor-ul-quran-backend-gq68.onrender.com";
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   const token = localStorage.getItem("token");
 
   const FloatingElements = () => (
@@ -449,15 +449,15 @@ function TeacherDetails() {
 
             {students.length > 0 ? (
               <div className="p-6">
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4 ">
                   {students.map((student, index) => (
                     <div
                       key={student._id || index}
                       className="p-6 transition-all duration-300 transform border shadow-lg bg-gradient-to-br from-white to-emerald-50 rounded-xl border-emerald-100 hover:shadow-xl hover:-translate-y-1"
                     >
                       {/* Student Header */}
-                      <div className="flex items-center gap-4 mb-4">
-                        <div className="flex items-center justify-center w-10 h-10 font-bold text-white rounded-full md:w-12 md:h-12 bg-gradient-to-br from-emerald-500 to-green-600">
+                      <div className="flex items-center gap-2 mb-4 w-fit">
+                        <div className="flex items-center justify-center w-10 h-10 font-bold text-white rounded-full md:w-10 md:h-10 bg-gradient-to-br from-emerald-500 to-green-600">
                           {student.name?.charAt(0) || "S"}
                         </div>
                         <div className="flex-1">

@@ -31,8 +31,8 @@ const Setting = () => {
   });
   const [imageFile, setImageFile] = useState(null);
   const [preview, setPreview] = useState(null);
-  const BASE_URL = "https://noor-ul-quran-backend-gq68.onrender.com";
-  //const BASE_URL = "https://localhost:8000";
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+  
   const token = localStorage.getItem("token");
   // Fetch current admin info on mount
   useEffect(() => {
@@ -254,7 +254,7 @@ const Setting = () => {
               </label>
               <input
                 type="text"
-                defaultValue="Islamic Learning Platform"
+                defaultValue="Al Noor Islamic Education Center"
                 className="w-full px-3 py-2 text-sm border rounded-lg border-emerald-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 disabled
               />
@@ -265,7 +265,7 @@ const Setting = () => {
               </label>
               <input
                 type="email"
-                defaultValue="contact@islamic-platform.com"
+                defaultValue="alnoorisledu@gmail.com"
                 className="w-full px-3 py-2 text-sm border rounded-lg border-emerald-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 disabled
               />

@@ -108,7 +108,7 @@ function About() {
   const [teamLoading, setTeamLoading] = useState(true);
   const [teamError, setTeamError] = useState(null);
   const navigate = useNavigate();
-  const BASE_URL = "https://noor-ul-quran-backend-gq68.onrender.com";
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   const stats = [
     { number: "10,000+", label: "Students Worldwide", icon: Users },

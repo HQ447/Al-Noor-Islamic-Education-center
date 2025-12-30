@@ -10,7 +10,7 @@ import logo from "../assets/logo2.png";
 
 export default function Footer() {
   const [courses, setCourses] = useState([]);
-  const BASE_URL = "https://noor-ul-quran-backend-gq68.onrender.com";
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   const year=new Date();
   const currYear=year.getFullYear()
@@ -138,7 +138,7 @@ export default function Footer() {
 
       {/* Middle Footer */}
       <div className="flex justify-center gap-1 px-3 py-4 text-xs text-center text-gray-400 bg-black ">
-        © {currYear} <b>alnooredu.online</b> All rights reserved. Designed by{" "}
+        © {currYear} <b>alnooredu.online</b> All rights reserved. Developed by{" "}
         <a
           href="https://hamadahmad.online"
           target="_blank"

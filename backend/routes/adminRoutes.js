@@ -15,6 +15,8 @@ import {
 } from "../controllers/profileController.js";
 import deleteAdmin from "../controllers/deleteAdmin.js";
 import getMyStudents from "../controllers/getMyStudents.js";
+import { getStudent } from "../controllers/getStudent.js";
+import { updateStudentFee } from "../controllers/updateStudentFee.js";
 
 const router = express.Router();
 
@@ -32,7 +34,9 @@ router.delete("/deleteStudent/:id", tokenVerifier, deleteStudent);
 router.delete("/deleteAdmin/:id", tokenVerifier, deleteAdmin);
 router.delete("/deleteCourse/:id", deleteCourse);
 router.get("/students", tokenVerifier, getMyStudents);
+router.get("/student/:id", tokenVerifier, getStudent);
 router.get("/getAdminProfile", tokenVerifier, getAdminProfile);
+router.put("/updateStudentFee/:studentId", updateStudentFee);
 router.put(
   "/updateProfile",
   tokenVerifier,

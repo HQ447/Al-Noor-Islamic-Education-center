@@ -10,7 +10,6 @@ import {
   X,
 } from "lucide-react";
 import { RiBookShelfLine } from "react-icons/ri";
-
 import { NavLink, useNavigate } from "react-router";
 import { useState } from "react";
 
@@ -62,7 +61,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
         <div className="p-4 border-b border-emerald-700/50">
           <div className="flex items-center space-x-3">
             <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br from-emerald-400 to-emerald-600">
-              🕮
+             🕮
             </div>
             <div className="">
               <h1 className="text-lg font-bold text-white">Al Noor</h1>
@@ -70,7 +69,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
             </div>
           </div>
         </div>
-
+ 
         <nav className="px-2 mt-4">
           {/* Common Tabs */}
           <NavLink

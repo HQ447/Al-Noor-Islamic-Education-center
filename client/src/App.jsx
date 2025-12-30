@@ -26,6 +26,7 @@ import NotFound from "./app/main/Not Found/NotFound";
 import AllStudents from "./app/dashboard/AllStudents";
 import TeacherDetails from "./app/dashboard/TeacherDetails";
 import TeacherDetail from "./app/main/Teacher Details/TeacherDetail";
+import StudentDetails from "./app/dashboard/StudentDetails";
 
 function App() {
   return (
@@ -58,6 +59,8 @@ function App() {
           <Route path="books" element={<BooksManagement />} />
           <Route path="all-students" element={<AllStudents />} />
           <Route path="teacher-detail/:id" element={<TeacherDetails />} />
+          <Route path="student-detail/:id" element={<StudentDetails />} />
+
           <Route path="settings" element={<Settings />} />
         </Route>
       </Routes>
