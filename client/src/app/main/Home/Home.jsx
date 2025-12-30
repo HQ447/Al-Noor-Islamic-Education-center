@@ -22,7 +22,7 @@ function Home() {
         href={`https://wa.me/${phoneNumber}?text=${encodedMessage}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed z-50 flex items-center justify-center transition-all bg-green-500 rounded-full hover:scale-105 right-10 bottom-7 md:bottom-10 w-13 h-13"
+        className="fixed z-50 flex items-center justify-center transition-all bg-green-500 rounded-full hover:scale-105 right-10 bottom-14 md:bottom-10 w-13 h-13"
       >
         <FaWhatsapp className="text-2xl text-white" />
    

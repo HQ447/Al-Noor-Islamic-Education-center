@@ -7,12 +7,15 @@ import Testimonial from "./Home/Testimonial";
 import Faqs from "./Home/Faqs";
 import { Outlet } from "react-router";
 
+
 function Main() {
   return (
     <div>
       <Navbar />
 
       <Outlet />
+    
+
       <Footer />
     </div>
   );

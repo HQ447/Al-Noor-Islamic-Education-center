@@ -40,7 +40,7 @@ function Navbar() {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 bg-white border-b-2 border-gray-200 shadow-lg">
+      <nav className="relative top-0 z-50 bg-white border-b-2 border-gray-200 shadow-lg ">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-10">
           <div className="flex items-center justify-between h-16 lg:h-20">
             {/* Mobile Menu Button */}
@@ -65,6 +65,7 @@ function Navbar() {
                 className="rounded-full w-9 h-9 md:w-13 md:h-13"
               />
               <NavLink to={"/"} className="flex flex-col">
+         
                 <h1 className="text-[16px] flex  font-bold text-gray-800 sm:text-base lg:text-xl">
                   Al Noor{" "}
                   <span className="hidden md:flex md:ms-2">
