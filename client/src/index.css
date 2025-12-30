@@ -1,4 +1,6 @@
 @import "tailwindcss";
+import './styles/fonts.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,3 +8,5 @@
 * ::-webkit-scrollbar {
   display: none;
 }
+
+

@@ -11,6 +11,9 @@ export default {
         "-sm": { max: "639px" },
         "-xsm": { max: "500px" },
       },
+       fontFamily: {
+        syamsi: ['SyamsiRamadhan', 'sans-serif'],
+      },
     },
   },
   plugins: [],
