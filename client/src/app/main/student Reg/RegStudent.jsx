@@ -485,6 +485,7 @@ const RegStudent = () => {
                         >
                           <option value="">Select your teacher</option>
                           {teachers.map((teacher, index) => (
+                              teacher.designation!== "Manager" && 
                             <option key={index} value={teacher._id}>
                               {teacher.name}
                             </option>

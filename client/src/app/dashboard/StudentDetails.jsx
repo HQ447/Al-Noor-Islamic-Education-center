@@ -250,6 +250,7 @@ function StudentDetails() {
                     <span>Student of {teacher.course}</span>
                   </div>
                 </div>
+              <p className={`px-2 py-1 text-xs font-bold text-white rounded-md  ${teacher.status?.toLowerCase() === "pending" ? "bg-amber-500" : "bg-white/20"} w-fit capitalize`}>{teacher.status}</p>
               </div>
 
               {/* Quick Actions */}
@@ -262,8 +263,8 @@ function StudentDetails() {
                     <span>Approve Student</span>
                   </button>
                 ) : (
-                  <div className="flex capitalize items-center gap-2 px-4 py-2 text-xs font-medium text-white transition-all duration-200 md:px-6 md:py-3 bg-emerald-600 backdrop-blur-sm rounded-xl ">
-                    <span className="flex justify-center gap-2 items-center">
+                  <div className="flex items-center gap-2 px-4 py-2 text-xs font-medium text-white capitalize transition-all duration-200 md:px-6 md:py-3 bg-emerald-600 backdrop-blur-sm rounded-xl ">
+                    <span className="flex items-center justify-center gap-2">
                       <IoCheckmarkDoneCircle className="w-5 h-5" />{" "}
                       {teacher.status}
                     </span>
@@ -314,9 +315,9 @@ function StudentDetails() {
                 <Badge className="w-5 h-5" />
                 Fee Statistics
               </h3>
-              <div className="space-y-6">
+              {enhancedTeacher.status !== "pending" ? <div className="space-y-6">
                 {teacher.feeStatus=="unclear" && 
-                <div className="flex flex-col items-center rounded-xl p-4 bg-gradient-to-r  from-emerald-100 to-emerald-100 ">
+                <div className="flex flex-col items-center p-4 rounded-xl bg-gradient-to-r from-emerald-100 to-emerald-100 ">
                   
                   <div
                     className={` flex gap-2 text-center mb-2
@@ -324,7 +325,7 @@ function StudentDetails() {
                   >
                     <input
                       type="number"
-                      className="flex outline-none items-center gap-2 w-full text-xs font-medium text-gray-700 transition-all duration-200 cursor-pointer px-6 py-3 bg-emerald-200 backdrop-blur-sm rounded-xl "
+                      className="flex items-center w-full gap-2 px-6 py-3 text-xs font-medium text-gray-700 transition-all duration-200 outline-none cursor-pointer bg-emerald-200 backdrop-blur-sm rounded-xl "
                       placeholder="Enter days"
                       onChange={(e) => setDays(e.target.value)}
                     />
@@ -396,7 +397,8 @@ function StudentDetails() {
                     Fee Paid Upto
                   </div>
                 </div>
-              </div>
+              </div> : <p className="font-bold text-center text-red-600">Please Approve Student Request.</p>}
+              
             </div>
             {/* Contact Information */}
             <div className="p-6 border shadow-xl bg-white/70 backdrop-blur-sm rounded-2xl border-emerald-200/50">
