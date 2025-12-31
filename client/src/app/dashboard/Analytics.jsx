@@ -86,34 +86,36 @@ const Analytics = () => {
         console.log("Courses API response:", coursesData);
         console.log("Admins API response:", adminsData);
 
+        // 🔹 STUDENTS
         let allStudents = [];
-        if (Array.isArray(studentsData)) {
-          allStudents = studentsData;
-        } else if (studentsData.data && Array.isArray(studentsData.data)) {
+        if (Array.isArray(studentsData?.result)) {
+          allStudents = studentsData.result;
+        } else if (Array.isArray(studentsData?.data)) {
           allStudents = studentsData.data;
-        } else if (
-          studentsData.students &&
-          Array.isArray(studentsData.students)
-        ) {
+        } else if (Array.isArray(studentsData?.students)) {
           allStudents = studentsData.students;
+        } else if (Array.isArray(studentsData)) {
+          allStudents = studentsData;
         }
 
+        // 🔹 COURSES
         let allCourses = [];
-        if (Array.isArray(coursesData)) {
-          allCourses = coursesData;
-        } else if (coursesData.data && Array.isArray(coursesData.data)) {
-          allCourses = coursesData.data;
-        } else if (coursesData.courses && Array.isArray(coursesData.courses)) {
+        if (Array.isArray(coursesData?.courses)) {
           allCourses = coursesData.courses;
+        } else if (Array.isArray(coursesData?.data)) {
+          allCourses = coursesData.data;
+        } else if (Array.isArray(coursesData)) {
+          allCourses = coursesData;
         }
 
+        // 🔹 ADMINS
         let allAdmins = [];
-        if (Array.isArray(adminsData)) {
-          allAdmins = adminsData;
-        } else if (adminsData.data && Array.isArray(adminsData.data)) {
-          allAdmins = adminsData.data;
-        } else if (adminsData.admins && Array.isArray(adminsData.admins)) {
+        if (Array.isArray(adminsData?.admins)) {
           allAdmins = adminsData.admins;
+        } else if (Array.isArray(adminsData?.data)) {
+          allAdmins = adminsData.data;
+        } else if (Array.isArray(adminsData)) {
+          allAdmins = adminsData;
         }
 
         const pendingStudents = allStudents.filter(
@@ -248,7 +250,7 @@ const Analytics = () => {
             Recent Activity
           </h3>
           <div className="space-y-3">
-            {students.slice(0, 5).map((student) => (
+            {students.map((student) => (
               <div
                 key={student.id || student._id}
                 className="flex items-center justify-between p-3 rounded-lg bg-emerald-50/50"
