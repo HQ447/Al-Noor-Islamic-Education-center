@@ -250,7 +250,12 @@ function StudentDetails() {
                     <span>Student of {teacher.course}</span>
                   </div>
                 </div>
-              <p className={`px-2 py-1 text-xs font-bold text-white rounded-md  ${teacher.status?.toLowerCase() === "pending" ? "bg-amber-500" : "bg-white/20"} w-fit capitalize`}>{teacher.status}</p>
+
+                <div className="flex flex-wrap justify-center gap-4 lg:justify-start">
+                  <div className="flex items-center gap-2 text-sm">
+                    <p className={`px-2 py-1 flex self-center justify-self-center  text-xs font-bold text-white rounded-md  ${teacher.status?.toLowerCase() === "pending" ? "bg-amber-500" : "bg-white/20"} w-fit capitalize`}>{teacher.status}</p>
+                  </div>
+                </div>
               </div>
 
               {/* Quick Actions */}
