@@ -13,7 +13,7 @@ import {
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { Github, Linkedin, Mail, Code } from "lucide-react";
-import developer from "../../../assets/developer.jpg";
+import developer from "../../../assets/developer.png";
 
 // Team Member Skeleton Component
 const TeamMemberSkeleton = () => (
