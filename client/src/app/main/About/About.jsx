@@ -249,6 +249,7 @@ function About() {
             // Team Members
             <div className="grid gap-8 md:grid-cols-3">
               {teamData.map((member) => (
+                member.designation !== "Manager" && (
                 <div
                   key={member._id}
                   className="relative p-6 transition-all duration-300 border shadow-xl bg-white/95 backdrop-blur-sm rounded-2xl border-emerald-200/50 hover:shadow-2xl hover:-translate-y-1 hover:border-emerald-300/70 group"
@@ -340,6 +341,7 @@ function About() {
                     </div>
                   </div>
                 </div>
+                )
               ))}
             </div>
           )}
