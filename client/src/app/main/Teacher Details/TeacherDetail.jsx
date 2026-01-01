@@ -169,7 +169,6 @@ function TeacherDetail() {
                 />
               </div> */}
               <div className="p-1 transition-all duration-300 rounded-full group-hover:scale-105">
-                
                 <div className="">
                   {teacher.img ? (
                     <div className="p-1 rounded-full bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500">
@@ -318,9 +317,14 @@ function TeacherDetail() {
 
         {/* Action Buttons */}
         <div className="flex flex-col justify-center gap-4 mt-8 sm:flex-row">
-          <button className="px-8 py-3 text-xs font-medium text-white transition-colors rounded-lg shadow-lg bg-emerald-600 hover:bg-emerald-700">
-            Contact Teacher
-          </button>
+          <a
+            href={`https://wa.me/${teacher.whatsapp}?text=Assalam O Alikum Sir!`}
+            target="_blank"
+          >
+            <button className="px-8 py-3 text-xs font-medium text-white transition-colors rounded-lg shadow-lg bg-emerald-600 hover:bg-emerald-700">
+              Contact via WhatsApp
+            </button>
+          </a>
           <button className="px-8 py-3 text-xs font-medium transition-colors bg-white border rounded-lg shadow-lg hover:bg-gray-50 text-emerald-600 border-emerald-600">
             View Classes
           </button>

@@ -8,14 +8,14 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 const sendEmail = async (to, subject, htmlContent) => {
   try {
     const data = await resend.emails.send({
-      from: "Al Noor Islamic Education Center <onboarding@resend.dev>",
+      from: "Al Noor Islamic Education Center <no-reply@send.alnooredu.online>", 
       to,
       subject,
       html: htmlContent,
     });
     return data;
   } catch (error) {
-    console.error("Email sending failed:", error);
+    console.error("Email sending failed:", error.response || error);
     throw new Error("Email sending failed");
   }
 };

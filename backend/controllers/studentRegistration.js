@@ -20,6 +20,7 @@ const registerStudent = async (req, res) => {
     const findTeacher = await User.findById(teacherId);
     if (!findTeacher) return res.status(404).json({ message: "Teacher not found" });
     const teacherName = findTeacher.name || "Instructor";
+    const teacherEmail = findTeacher.email || "";
 
     // Create new student
     const newStudent = new User({
@@ -57,18 +58,43 @@ const registerStudent = async (req, res) => {
         </div>
       </div>
     `;
-
-    // DEBUG: log all variables
-    console.log("Registration Email Debug:");
-    console.log("To:", email);
-    console.log("Name:", name);
-    console.log("Teacher:", teacherName);
-    console.log("HTML length:", emailHTML.length);
+    // Build teacher email
+    const teacherEmailHTML = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
+        <div style="background-color: #004225; color: #ffffff; padding: 20px; text-align: center;">
+          <h1 style="margin: 0; font-size: 24px;">Al Noor Islamic Education Center</h1>
+          <p style="margin: 5px 0 0; font-size: 14px;">Distance Learning Platform</p>
+        </div>
+        <div style="padding: 30px;">
+          <h2 style="color: #333;">Hi ${name},</h2>
+          <p style="font-size: 16px; color: #555;">
+          Student name <strong>${name}</strong> Sends a Registration Request. Please sign in to your dashboad and review the student request to take necessary action.
+          </p>
+          <p style="font-size: 16px; color: #555;">
+            Student Details:
+            <br/>
+            Email: ${email}
+            <br/>
+            Phone: ${whatsapp}
+            <br/>
+            Course: ${course}
+            <br/>
+            Country: ${country}
+            <br/>
+            Request Date: ${new Date().toLocaleString()}
+          </p>
+        </div>
+        <div style="background-color: #f9f9f9; padding: 15px; text-align: center; font-size: 12px; color: #888;">
+          &copy; ${new Date().getFullYear()} Al Noor Islamic Education Center. All rights reserved.
+        </div>
+      </div>
+    `;
 
     // Send email and catch full Resend error
     try {
       const response = await sendEmail(email, "Request For Registration", emailHTML);
-      console.log("Registration email sent:", response);
+      const response2 = await sendEmail(teacherEmail, "Student Request For Registration", teacherEmailHTML);
+      console.log("Registration email sent:", response , response2);
     } catch (emailError) {
       console.error("Resend email failed:", emailError.response || emailError);
     }

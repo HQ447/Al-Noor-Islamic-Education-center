@@ -129,7 +129,7 @@ export default function Faqs() {
           </p>
           <div className="flex flex-col justify-center gap-2 sm:flex-row">
             <a
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=hamadqur447@gmail.com"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=alnoorisledu@gmail.com"
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-2 text-xs font-semibold text-blue-600 transition-colors bg-white rounded-lg md:text-sm md:py-2 hover:bg-gray-100"
