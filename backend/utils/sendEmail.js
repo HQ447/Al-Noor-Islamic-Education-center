@@ -8,7 +8,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 const sendEmail = async (to, subject, htmlContent) => {
   try {
     const data = await resend.emails.send({
-      from: "Al Noor Islamic Education Center <no-reply@send.alnooredu.online>", // ✅ use verified domain
+      from: "Al Noor Islamic Education Center <no-reply@send.alnooredu.online>", 
       to,
       subject,
       html: htmlContent,

@@ -768,7 +768,7 @@ const AllStudents = () => {
                   onClick={()=>navigate(`/admin-dashboard/student-detail/${student._id}`)}
                    className="flex items-center justify-center gap-1.5 px-3 py-2.5 text-xs font-semibold text-white transition-all duration-200 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-xl shadow-md hover:from-emerald-700 hover:to-teal-700 hover:shadow-lg transform hover:scale-[1.02] active:scale-[0.98]"
                      >
-                    View Details
+                    View Details 
                   </button>
                     
                     <button
