@@ -31,14 +31,33 @@ function StudentDetails() {
   const [teacher, setTeacher] = useState({});
   const [students, setStudents] = useState([]);
   const [days, setDays] = useState("0");
+  const [teachers, setTeachers] = useState([]);
+  const [teacherId, setTeacherId] = useState("");
   const [loading, setLoading] = useState(true);
   const [selectedView, setSelectedView] = useState("overview");
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const token = localStorage.getItem("token");
 
-  const handleApprove = async (studentId) => {
+  const fetchTeachers = async () => {
     try {
-      const res = await fetch(`${BASE_URL}/admin/updateStatus/${studentId}`, {
+      const res = await fetch(`${BASE_URL}/super/getAllTeachers`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      const data = await res.json();
+      setTeachers(data.teachers);
+    } catch (err) {
+      console.error("Failed to fetch teachers", err);
+    }
+  };
+  const handleApprove = async (studentId) => {
+    if(!teacherId){
+      alert("Please select a teacher");
+      return;
+    }
+    try {
+      const res = await fetch(`${BASE_URL}/admin/updateStatus/${studentId}/${teacherId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -146,6 +165,7 @@ function StudentDetails() {
   };
 
   useEffect(() => {
+    fetchTeachers();
     fetchProfile();
   }, [id]);
 
@@ -253,16 +273,24 @@ function StudentDetails() {
 
                 <div className="flex flex-wrap justify-center gap-4 lg:justify-start">
                   <div className="flex items-center gap-2 text-sm">
-                    <p className={`px-2 py-1 flex self-center justify-self-center  text-xs font-bold text-white rounded-md  ${teacher.status?.toLowerCase() === "pending" ? "bg-amber-500" : "bg-white/20"} w-fit capitalize`}>{teacher.status}</p>
+                    <p
+                      className={`px-2 py-1 flex self-center justify-self-center  text-xs font-bold text-white rounded-md  ${
+                        teacher.status?.toLowerCase() === "pending"
+                          ? "bg-amber-500"
+                          : "bg-white/20"
+                      } w-fit capitalize`}
+                    >
+                      {teacher.status}
+                    </p>
                   </div>
                 </div>
               </div>
 
+             
               {/* Quick Actions */}
               <div className="flex flex-col gap-3">
                 {teacher.status?.toLowerCase() === "pending" ? (
                   <button
-                    onClick={() => handleApprove(id)}
                     className="flex items-center gap-2 px-4 py-2 text-xs font-medium text-white transition-all duration-200 cursor-pointer md:px-6 md:py-3 bg-white/20 backdrop-blur-sm rounded-xl hover:bg-white/30"
                   >
                     <span>Approve Student</span>
@@ -318,92 +346,118 @@ function StudentDetails() {
             <div className="p-6 border shadow-xl bg-white/70 backdrop-blur-sm rounded-2xl border-emerald-200/50">
               <h3 className="flex items-center gap-2 mb-6 text-sm font-bold md:text-lg text-emerald-800">
                 <Badge className="w-5 h-5" />
-                Fee Statistics
+                {teacher.status !== "pending" ? "Fee Statistics" : "Actions"}
               </h3>
-              {enhancedTeacher.status !== "pending" ? <div className="space-y-6">
-                {teacher.feeStatus=="unclear" && 
-                <div className="flex flex-col items-center p-4 rounded-xl bg-gradient-to-r from-emerald-100 to-emerald-100 ">
-                  
-                  <div
-                    className={` flex gap-2 text-center mb-2
+              {enhancedTeacher.status !== "pending" ? (
+                <div className="space-y-6">
+                  {teacher.feeStatus == "unclear" && (
+                    <div className="flex flex-col items-center p-4 rounded-xl bg-gradient-to-r from-emerald-100 to-emerald-100 ">
+                      <div
+                        className={` flex gap-2 text-center mb-2
                   `}
+                      >
+                        <input
+                          type="number"
+                          className="flex items-center w-full gap-2 px-6 py-3 text-xs font-medium text-gray-700 transition-all duration-200 outline-none cursor-pointer bg-emerald-200 backdrop-blur-sm rounded-xl "
+                          placeholder="Enter days"
+                          onChange={(e) => setDays(e.target.value)}
+                        />
+                        <button
+                          onClick={() => updateFee(teacher._id)}
+                          className={` ${
+                            days == "" ? "bg-emerald-400" : "bg-emerald-600 "
+                          } flex w-full items-center gap-2  text-xs font-medium text-white transition-all duration-200 cursor-pointer px-6 py-2 backdrop-blur-sm rounded-xl hover:bg-emerald-500`}
+                        >
+                          <FaDollarSign className="w-5 h-5" />
+                          Pay Fee
+                        </button>
+                      </div>
+                      <div className={`text-xs    text-emerald-800`}>
+                        How many days fee he want to Pay?
+                      </div>
+                    </div>
+                  )}
+                  <div
+                    className={`p-4 text-center bg-gradient-to-r  ${
+                      enhancedTeacher.feeStatus == "clear"
+                        ? "from-emerald-100 to-green-100 "
+                        : "from-red-100 to-red-100 "
+                    } from-emerald-100 to-green-100 rounded-xl`}
                   >
-                    <input
-                      type="number"
-                      className="flex items-center w-full gap-2 px-6 py-3 text-xs font-medium text-gray-700 transition-all duration-200 outline-none cursor-pointer bg-emerald-200 backdrop-blur-sm rounded-xl "
-                      placeholder="Enter days"
-                      onChange={(e) => setDays(e.target.value)}
-                    />
-                    <button
-                      onClick={() => updateFee(teacher._id)}
-                      className={` ${days==""?"bg-emerald-400":"bg-emerald-600 "} flex w-full items-center gap-2  text-xs font-medium text-white transition-all duration-200 cursor-pointer px-6 py-2 backdrop-blur-sm rounded-xl hover:bg-emerald-500`}
+                    <div
+                      className={`mb-1 text-2xl font-bold capitalize  ${
+                        enhancedTeacher.feeStatus == "clear"
+                          ? "text-emerald-800"
+                          : "text-red-800"
+                      }`}
                     >
-                      <FaDollarSign className="w-5 h-5" />
-                      Pay Fee
-                    </button>
+                      {enhancedTeacher.feeStatus}
+                    </div>
+                    <div
+                      className={`  ${
+                        enhancedTeacher.feeStatus == "clear"
+                          ? "text-emerald-800"
+                          : "text-red-800"
+                      } text-sm font-medium text-emerald-600`}
+                    >
+                      Fee Status
+                    </div>
                   </div>
-                  <div
-                    className={`text-xs    text-emerald-800`}
-                  >
-                   How many days fee he want to Pay?
+
+                  <div className="p-4 text-center bg-gradient-to-r from-blue-100 to-teal-100 rounded-xl">
+                    <div className="mb-1 text-xl font-bold text-blue-800 ">
+                      {teacher.feeDays || "0"} Days
+                    </div>
+                    <div className="text-sm font-medium text-blue-600">
+                      Fee Paid
+                    </div>
                   </div>
-                </div>}
-                <div
-                  className={`p-4 text-center bg-gradient-to-r  ${
-                    enhancedTeacher.feeStatus == "clear"
-                      ? "from-emerald-100 to-green-100 "
-                      : "from-red-100 to-red-100 "
-                  } from-emerald-100 to-green-100 rounded-xl`}
+
+                  <div className="p-4 text-center bg-gradient-to-r from-amber-100 to-yellow-100 rounded-xl">
+                    <div className="mb-1 text-xl font-bold text-amber-800">
+                      {teacher.feeEndDate
+                        ? new Date(teacher.feeEndDate).toLocaleDateString(
+                            "en-US",
+                            {
+                              day: "2-digit",
+                              month: "long",
+                              year: "numeric",
+                            }
+                          )
+                        : "Not Paid"}
+                    </div>
+                    <div className="flex items-center justify-center gap-1 text-sm font-medium text-amber-600">
+                      <Star className="w-3 h-3 fill-current" />
+                      Fee Paid Upto
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                 <div className="flex flex-col gap-3">
+                  <p className="text-xs text-red-600">Student is waiting for your approval , kindly assign instructor and approve student request.</p>
+                <select
+                  name="teacher"
+                  id=""
+                  onChange={(e) => setTeacherId(e.target.value)}
+                  className="flex items-center gap-2 px-4 py-2 text-xs font-medium text-white transition-all duration-200 cursor-pointer md:px-6 md:py-3 bg-emerald-600 backdrop-blur-sm rounded-xl "
+                
                 >
-                  <div
-                    className={`mb-1 text-2xl font-bold capitalize  ${
-                      enhancedTeacher.feeStatus == "clear"
-                        ? "text-emerald-800"
-                        : "text-red-800"
-                    }`}
-                  >
-                    {enhancedTeacher.feeStatus}
-                  </div>
-                  <div
-                    className={`  ${
-                      enhancedTeacher.feeStatus == "clear"
-                        ? "text-emerald-800"
-                        : "text-red-800"
-                    } text-sm font-medium text-emerald-600`}
-                  >
-                    Fee Status
-                  </div>
-                </div>
-
-                <div className="p-4 text-center bg-gradient-to-r from-blue-100 to-teal-100 rounded-xl">
-                  <div className="mb-1 text-xl font-bold text-blue-800 ">
-                    {teacher.feeDays || "0"} Days
-                  </div>
-                  <div className="text-sm font-medium text-blue-600">
-                    Fee Paid 
-                  </div>
-                </div>
-
-                <div className="p-4 text-center bg-gradient-to-r from-amber-100 to-yellow-100 rounded-xl">
-                  <div className="mb-1 text-xl font-bold text-amber-800">
-                    {teacher.feeEndDate
-                      ? new Date(teacher.feeEndDate).toLocaleDateString(
-                          "en-US",
-                          {
-                            day: "2-digit",
-                            month: "long",
-                            year: "numeric",
-                          }
-                        )
-                      : "Not Paid"}
-                  </div>
-                  <div className="flex items-center justify-center gap-1 text-sm font-medium text-amber-600">
-                    <Star className="w-3 h-3 fill-current" />
-                    Fee Paid Upto
-                  </div>
-                </div>
-              </div> : <p className="font-bold text-center text-red-600">Please Approve Student Request.</p>}
-              
+                  <option value="">Select Teacher</option>
+                  {teachers.map((teacher) => (
+                    <option key={teacher._id} value={teacher._id} className="flex items-center gap-2 px-4 py-2 text-xs font-medium text-white transition-all duration-200 cursor-pointer md:px-6 md:py-3 bg-emerald-800 backdrop-blur-sm rounded-xl "
+                >
+                      {teacher.name}
+                    </option>
+                  ))}
+                </select>
+                <button
+                  onClick={() => handleApprove(id)}
+                  className="flex items-center gap-2 px-4 py-2 mx-auto text-xs font-medium text-white transition-all duration-200 bg-orange-500 cursor-pointer w-fit md:px-6 md:py-3 backdrop-blur-sm rounded-xl hover:bg-emerald-600"
+                >
+                  <span>Approve Student</span>
+                </button>
+              </div>
+              )}
             </div>
             {/* Contact Information */}
             <div className="p-6 border shadow-xl bg-white/70 backdrop-blur-sm rounded-2xl border-emerald-200/50">

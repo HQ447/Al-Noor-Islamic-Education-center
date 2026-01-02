@@ -28,7 +28,6 @@ const RegStudent = () => {
     whatsapp: "",
     country: "",
     course: "",
-    teacherId: "",
     joinDate: "",
   });
 
@@ -120,7 +119,6 @@ const RegStudent = () => {
       !formData.whatsapp ||
       !formData.country ||
       !formData.course ||
-      !formData.teacherId ||
       !formData.joinDate
     ) {
       showErrorModal(
@@ -155,7 +153,6 @@ const RegStudent = () => {
         whatsapp: "",
         country: "",
         course: "",
-        teacherId: "",
         joinDate: "",
       });
     } catch (error) {
@@ -426,7 +423,7 @@ const RegStudent = () => {
                       <GraduationCap className="w-5 h-5 text-white" />
                     </div>
                     <h3 className="text-lg font-bold text-gray-800 md:text-2xl">
-                      Course & Teacher Selection
+                      Course  Selection
                     </h3>
                   </div>
 
@@ -470,45 +467,7 @@ const RegStudent = () => {
                       </div>
                     </div>
 
-                    {/* Teacher */}
-                    <div className="group">
-                      <label className="block mb-3 text-xs font-bold tracking-wide text-gray-700 uppercase">
-                        Preferred Teacher *
-                      </label>
-                      <div className="relative">
-                        <select
-                          name="teacherId"
-                          required
-                          value={formData.teacherId}
-                          onChange={handleInputChange}
-                          className="w-full px-4 py-2 text-sm text-gray-800 transition-all duration-300 border-2 border-gray-200 appearance-none cursor-pointer md:py-3 placeholder:text-sm bg-gray-50 rounded-xl focus:bg-white focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 group-hover:border-gray-300"
-                        >
-                          <option value="">Select your teacher</option>
-                          {teachers.map((teacher, index) => (
-                              teacher.designation!== "Manager" && 
-                            <option key={index} value={teacher._id}>
-                              {teacher.name}
-                            </option>
-                          ))}
-                        </select>
-                        <Users className="absolute w-5 h-5 text-gray-400 transition-colors transform -translate-y-1/2 right-12 top-1/2 group-focus-within:text-emerald-500" />
-                        <div className="absolute transform -translate-y-1/2 pointer-events-none right-4 top-1/2">
-                          <svg
-                            className="w-5 h-5 text-gray-400"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M19 9l-7 7-7-7"
-                            />
-                          </svg>
-                        </div>
-                      </div>
-                    </div>
+                    
                   </div>
                 </div>
 
