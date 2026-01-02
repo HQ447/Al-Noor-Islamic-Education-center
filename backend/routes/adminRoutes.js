@@ -29,7 +29,7 @@ router.post(
 );
 router.get("/courses", getCourses);
 router.get("/course/:id", findCourse);
-router.put("/updateStatus/:id", tokenVerifier, updateStatus);
+router.put("/updateStatus/:id/:teacherId", tokenVerifier, updateStatus);
 router.delete("/deleteStudent/:id", tokenVerifier, deleteStudent);
 router.delete("/deleteAdmin/:id", tokenVerifier, deleteAdmin);
 router.delete("/deleteCourse/:id", deleteCourse);

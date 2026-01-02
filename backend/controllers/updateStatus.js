@@ -3,12 +3,17 @@ import sendEmail from "../utils/sendEmail.js";
 
 const updateStatus = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
+  const { teacherId } = req.params;
+  
   try {
     const student = await User.findById(id);
+    const teacher = await User.findById(teacherId);
     if (!student) return res.json({ message: "Student not found" });
+    if (!teacher) return res.json({ message: "Teacher not found" });
 
     student.status = "registered";
+    student.teacherId = teacherId;
+    student.teacherName = teacher.name;
     await student.save();
 
     const emailHTML = `
@@ -26,7 +31,7 @@ const updateStatus = async (req, res) => {
         We Review Your Registration Application
       </p>
       <p style="font-size: 14px; color: #555;">
-       After carefull consideration , Our Instructor successfully Approved Your Registration. Happy Learning. Thank you for joining Al Noor Islamic Education Center.
+       After carefull consideration , we approved Your Registration . Your instructor is ${teacher.name} you can contact with your instructor on ${teacher.whatsapp} . Happy Learning. Thank you for joining Al Noor Islamic Education Center.
       </p>
     </div>
 

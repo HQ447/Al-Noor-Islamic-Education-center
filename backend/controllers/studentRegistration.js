@@ -3,7 +3,7 @@ import sendEmail from "../utils/sendEmail.js";
 
 const registerStudent = async (req, res) => {
   try {
-    const { name, email, whatsapp, country, course, joinDate, teacherId } = req.body;
+    const { name, email, whatsapp, country, course, joinDate } = req.body;
 
     // Basic validation
     if (!name || !email || !course) {
@@ -17,7 +17,10 @@ const registerStudent = async (req, res) => {
     }
 
     // Find teacher
-    const findTeacher = await User.findById(teacherId);
+    const findTeacher = await User.findOne({
+  role: "superadmin",
+  designation: { $ne: "Manager" }
+});
     if (!findTeacher) return res.status(404).json({ message: "Teacher not found" });
     const teacherName = findTeacher.name || "Instructor";
     const teacherEmail = findTeacher.email || "";
@@ -27,7 +30,6 @@ const registerStudent = async (req, res) => {
       name,
       email,
       whatsapp,
-      teacherId,
       teacherName,
       country,
       course,
@@ -47,10 +49,10 @@ const registerStudent = async (req, res) => {
         <div style="padding: 30px;">
           <h2 style="color: #333;">Hi ${name},</h2>
           <p style="font-size: 16px; color: #555;">
-            Your registration application has been submitted with our instructor <strong>${teacherName}</strong>.
+            Your registration application has been submitted to our superadmin <strong>${teacherName}</strong>.
           </p>
           <p style="font-size: 16px; color: #555;">
-            We will inform you once it is approved by an instructor. Thank you for joining Al Noor Islamic Education Center.
+            We will inform you once it is approved by an superadmin. Thank you for joining Al Noor Islamic Education Center.
           </p>
         </div>
         <div style="background-color: #f9f9f9; padding: 15px; text-align: center; font-size: 12px; color: #888;">
@@ -94,7 +96,7 @@ const registerStudent = async (req, res) => {
     try {
       const response = await sendEmail(email, "Request For Registration", emailHTML);
       const response2 = await sendEmail(teacherEmail, "Student Request For Registration", teacherEmailHTML);
-      console.log("Registration email sent:", response , response2);
+      
     } catch (emailError) {
       console.error("Resend email failed:", emailError.response || emailError);
     }
