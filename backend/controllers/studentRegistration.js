@@ -50,11 +50,11 @@ const registerStudent = async (req, res) => {
             Your registration application has been submitted with our instructor <strong>${teacherName}</strong>.
           </p>
           <p style="font-size: 16px; color: #555;">
-            We will inform you once it is approved by an instructor. Thank you for joining Noor Islamic Center.
+            We will inform you once it is approved by an instructor. Thank you for joining Al Noor Islamic Education Center.
           </p>
         </div>
         <div style="background-color: #f9f9f9; padding: 15px; text-align: center; font-size: 12px; color: #888;">
-          &copy; ${new Date().getFullYear()} Noor Islamic Center. All rights reserved.
+          &copy; ${new Date().getFullYear()} Al Noor Islamic Education Center. All rights reserved.
         </div>
       </div>
     `;
@@ -66,7 +66,7 @@ const registerStudent = async (req, res) => {
           <p style="margin: 5px 0 0; font-size: 14px;">Distance Learning Platform</p>
         </div>
         <div style="padding: 30px;">
-          <h2 style="color: #333;">Hi ${name},</h2>
+          <h2 style="color: #333;">Hi ${teacherName},</h2>
           <p style="font-size: 16px; color: #555;">
           Student name <strong>${name}</strong> Sends a Registration Request. Please sign in to your dashboad and review the student request to take necessary action.
           </p>
