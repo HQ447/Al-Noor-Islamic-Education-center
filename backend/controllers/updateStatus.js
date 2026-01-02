@@ -15,7 +15,7 @@ const updateStatus = async (req, res) => {
   <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
     <!-- Header -->
     <div style="background-color: #004225; color: #ffffff; padding: 20px; text-align: center;">
-      <h1 style="margin: 0; font-size: 24px;">Noor Islamic Center</h1>
+      <h1 style="margin: 0; font-size: 24px;">Al Noor Islamic Education Center</h1>
       <p style="margin: 5px 0 0; font-size: 14px;">Distance Learning Platform</p>
     </div>
 
@@ -26,13 +26,13 @@ const updateStatus = async (req, res) => {
         We Review Your Registration Application
       </p>
       <p style="font-size: 14px; color: #555;">
-       After carefull consideration , Our Instructor successfully Approved Your Registration. Happy Learning. Thank you for joining Noor ul Quran.
+       After carefull consideration , Our Instructor successfully Approved Your Registration. Happy Learning. Thank you for joining Al Noor Islamic Education Center.
       </p>
     </div>
 
     <!-- Footer -->
     <div style="background-color: #f9f9f9; padding: 15px; text-align: center; font-size: 12px; color: #888;">
-      &copy; ${new Date().getFullYear()} Noor ul Quran. All rights reserved.
+      &copy; ${new Date().getFullYear()} Al Noor Islamic Education Center. All rights reserved.
     </div>
   </div>
 `;

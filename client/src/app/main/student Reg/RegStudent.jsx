@@ -484,12 +484,11 @@ const RegStudent = () => {
                           className="w-full px-4 py-2 text-sm text-gray-800 transition-all duration-300 border-2 border-gray-200 appearance-none cursor-pointer md:py-3 placeholder:text-sm bg-gray-50 rounded-xl focus:bg-white focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 group-hover:border-gray-300"
                         >
                           <option value="">Select your teacher</option>
-                          {teachers.map((teacher, index) => (
-                              teacher.designation!== "Manager" && 
+                          {teachers.map((teacher, index) => 
                             <option key={index} value={teacher._id}>
                               {teacher.name}
                             </option>
-                          ))}
+                          )}
                         </select>
                         <Users className="absolute w-5 h-5 text-gray-400 transition-colors transform -translate-y-1/2 right-12 top-1/2 group-focus-within:text-emerald-500" />
                         <div className="absolute transform -translate-y-1/2 pointer-events-none right-4 top-1/2">
