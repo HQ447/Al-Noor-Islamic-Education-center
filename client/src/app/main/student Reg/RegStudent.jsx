@@ -195,7 +195,7 @@ const RegStudent = () => {
     { name: "North Macedonia", code: "+389" },
     { name: "Norway", code: "+47" },
     { name: "Oman", code: "+968" },
-    { name: "Pakistan", code: "92" },
+    { name: "Pakistan", code: "+92" },
     { name: "Palau", code: "+680" },
     { name: "Palestine", code: "+970" },
     { name: "Panama", code: "+507" },
@@ -319,13 +319,18 @@ const RegStudent = () => {
     // Validate WhatsApp number with country code
     if (formData.country && formData.country !== "Other") {
       const expectedCode = countryCodes[formData.country];
-      const whatsappNumber = formData.whatsapp.trim();
+      if (expectedCode) {
+        // Remove "+" from expected code for comparison
+        const expectedCodeWithoutPlus = expectedCode.replace("+", "");
+        // Remove "+" and spaces from user input for comparison
+        const whatsappNumber = formData.whatsapp.trim().replace(/\+|\s/g, "");
 
-      if (expectedCode && !whatsappNumber.startsWith(expectedCode)) {
-        showErrorModal(
-          `Invalid WhatsApp number! The number should start with ${expectedCode} for ${formData.country}. Please enter the correct country code.`
-        );
-        return;
+        if (!whatsappNumber.startsWith(expectedCodeWithoutPlus)) {
+          showErrorModal(
+            `Invalid WhatsApp number! The number should start with ${expectedCodeWithoutPlus} (without + sign) for ${formData.country}. Please enter the correct country code.`
+          );
+          return;
+        }
       }
     }
 
@@ -677,10 +682,14 @@ const RegStudent = () => {
                           value={formData.whatsapp}
                           onChange={handleInputChange}
                           className="w-full px-4 py-2 text-gray-800 transition-all duration-300 border-2 border-gray-200 placeholder:text-sm md:py-3 bg-gray-50 rounded-xl focus:bg-white focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 group-hover:border-gray-300"
-                          placeholder="+1 234 567 8900"
+                          placeholder="1 234 567 8900"
                         />
                         <Phone className="absolute w-5 h-5 text-gray-400 transition-colors transform -translate-y-1/2 right-4 top-1/2 group-focus-within:text-emerald-500" />
                       </div>
+                      <p className="mt-2 text-xs text-gray-500">
+                        Do not add "+" sign. Start directly with the country
+                        code (e.g., 1, 92, 966, etc.)
+                      </p>
                     </div>
                   </div>
                 </div>
