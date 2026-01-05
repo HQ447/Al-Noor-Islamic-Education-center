@@ -552,17 +552,7 @@ const AllStudents = () => {
                         : "N/A"}
                     </td>
                     <td className="flex gap-2 px-3 py-4 text-sm font-medium md:px-6 whitespace-nowrap">
-                      {student.status?.toLowerCase() === "pending" && (
-                        <button
-                          onClick={() =>
-                            handleApprove(student._id || student.id)
-                          }
-                          className="flex items-center px-2 py-1 space-x-1 text-xs text-white transition-colors bg-green-600 rounded-lg hover:bg-green-700 md:px-3"
-                        >
-                          <UserCheck className="w-3 h-3" />
-                          <span className="hidden sm:inline">Approve</span>
-                        </button>
-                      )}
+                    
                       <button
                         onClick={() => handleDeleteStudent(student._id)}
                         disabled={deletingStudents.has(student._id)}
