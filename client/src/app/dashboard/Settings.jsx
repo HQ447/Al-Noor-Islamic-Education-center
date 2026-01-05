@@ -32,7 +32,7 @@ const Setting = () => {
   const [imageFile, setImageFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const BASE_URL = import.meta.env.VITE_BASE_URL;
-  
+
   const token = localStorage.getItem("token");
   // Fetch current admin info on mount
   useEffect(() => {
@@ -181,6 +181,10 @@ const Setting = () => {
                 onChange={handleChange}
                 className="w-full px-3 py-2 text-sm border rounded-lg border-emerald-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
+              <p className="text-xs text-gray-500">
+                Do not add "+" sign or 0. Start directly with the country code
+                (e.g 1, 92, 966, etc.)
+              </p>
             </div>
             <div>
               <label className="block mb-2 text-sm font-medium text-emerald-700">
