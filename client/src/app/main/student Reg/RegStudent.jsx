@@ -687,8 +687,8 @@ const RegStudent = () => {
                         <Phone className="absolute w-5 h-5 text-gray-400 transition-colors transform -translate-y-1/2 right-4 top-1/2 group-focus-within:text-emerald-500" />
                       </div>
                       <p className="mt-2 text-xs text-gray-500">
-                        Do not add "+" sign. Start directly with the country
-                        code (e.g., 1, 92, 966, etc.)
+                        Do not add "+" sign or 0. Start directly with the
+                        country code (e.g 1, 92, 966, etc.)
                       </p>
                     </div>
                   </div>
