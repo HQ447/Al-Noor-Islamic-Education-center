@@ -213,7 +213,7 @@ function TeacherDetails() {
               {/* Quick Actions */}
               <div className="flex flex-col gap-3">
                 <a
-                  href={`https://wa.me/${enhancedTeacher.whatsapp}?text=Assalam O Alikum! I would like to discuss about teaching.`}
+                  href={`https://wa.me/${enhancedTeacher.whatsapp}?text=Assalam O Alikum!`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 px-4 py-2 text-xs font-medium text-white transition-all duration-200 md:px-6 md:py-3 bg-white/20 backdrop-blur-sm rounded-xl hover:bg-white/30"
