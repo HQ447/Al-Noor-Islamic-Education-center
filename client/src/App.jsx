@@ -28,6 +28,7 @@ import TeacherDetails from "./app/dashboard/TeacherDetails";
 import TeacherDetail from "./app/main/Teacher Details/TeacherDetail";
 import StudentDetails from "./app/dashboard/StudentDetails";
 import useGA from "./useGA";
+import AnalyticsPage from "./app/dashboard/AnalyticsPage";
 function App() {
   useGA();
   return (
@@ -61,7 +62,7 @@ function App() {
           <Route path="all-students" element={<AllStudents />} />
           <Route path="teacher-detail/:id" element={<TeacherDetails />} />
           <Route path="student-detail/:id" element={<StudentDetails />} />
-
+          <Route path="analytics" element={<AnalyticsPage />} />
           <Route path="settings" element={<Settings />} />
         </Route>
       </Routes>

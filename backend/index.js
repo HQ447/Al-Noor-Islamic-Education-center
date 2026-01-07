@@ -9,6 +9,7 @@ import cors from "cors";
 import router from "./routes/bookRoutes.js";
 import adminRouter from "./routes/adminRoutes.js";
 import superAdminRouter from "./routes/superAdminRoutes.js";
+import analyticsRouter from "./routes/analytics.js";
 
 dotenv.config();
 
@@ -48,7 +49,7 @@ const allowedOrigins = [
   "https://islamic-center-beta.vercel.app",
   "https://alnooredu.online",
   "https://www.alnooredu.online",
-  // "http://localhost:5173"
+  "http://localhost:5173",
 ];
 
 app.use(
@@ -78,6 +79,7 @@ app.use("/auth", authRouter);
 app.use("/admin", adminRouter);
 app.use("/super", superAdminRouter);
 app.use("/api", router);
+app.use("/analytics", analyticsRouter);
 
 // Test route
 app.get("/", (req, res) => res.send("Server is running 🚀🚀🚀"));

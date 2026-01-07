@@ -338,7 +338,7 @@ const CourseManagement = () => {
                 <div className="relative z-10 px-6 py-6">
                   {/* Title with better typography */}
                   <div className="mb-2">
-                    <h3 className="mb-2 text-lg font-bold leading-tight text-gray-900 transition-colors line-clamp-2 group-hover:text-emerald-700">
+                    <h3 className="mb-2 text-lg hover:line-clamp-2  font-bold leading-tight text-gray-900 transition-colors line-clamp-1 group-hover:text-emerald-700">
                       {course.title}
                     </h3>
                     <p className="text-xs leading-relaxed text-gray-600 line-clamp-3">
@@ -372,7 +372,7 @@ const CourseManagement = () => {
                             Students
                           </p>
                           <p className="text-xs font-bold text-gray-900">
-                            {course.students?.toLocaleString() || "423"}
+                            {course.students?.toLocaleString() || "100"}
                           </p>
                         </div>
                       </div>
