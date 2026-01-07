@@ -52,19 +52,22 @@ function StudentDetails() {
     }
   };
   const handleApprove = async (studentId) => {
-    if(!teacherId){
+    if (!teacherId) {
       alert("Please select a teacher");
       return;
     }
     try {
-      const res = await fetch(`${BASE_URL}/admin/updateStatus/${studentId}/${teacherId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify({ status: "registered" }),
-      });
+      const res = await fetch(
+        `${BASE_URL}/admin/updateStatus/${studentId}/${teacherId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({ status: "registered" }),
+        }
+      );
 
       if (res.ok) {
         setStudents((prev) =>
@@ -286,13 +289,10 @@ function StudentDetails() {
                 </div>
               </div>
 
-             
               {/* Quick Actions */}
               <div className="flex flex-col gap-3">
                 {teacher.status?.toLowerCase() === "pending" ? (
-                  <button
-                    className="flex items-center gap-2 px-4 py-2 text-xs font-medium text-white transition-all duration-200 cursor-pointer md:px-6 md:py-3 bg-white/20 backdrop-blur-sm rounded-xl hover:bg-white/30"
-                  >
+                  <button className="flex items-center gap-2 px-4 py-2 text-xs font-medium text-white transition-all duration-200 cursor-pointer md:px-6 md:py-3 bg-white/20 backdrop-blur-sm rounded-xl hover:bg-white/30">
                     <span>Approve Student</span>
                   </button>
                 ) : (
@@ -304,7 +304,7 @@ function StudentDetails() {
                   </div>
                 )}
                 <a
-                  href={`https://wa.me/${enhancedTeacher.whatsapp}?text=Assalam O Alikum! I would like to discuss about teaching.`}
+                  href={`https://wa.me/${enhancedTeacher.whatsapp}?text=Assalam O Alikum ${enhancedTeacher.name}!`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 px-4 py-2 text-xs font-medium text-white transition-all duration-200 md:px-6 md:py-3 bg-white/20 backdrop-blur-sm rounded-xl hover:bg-white/30"
@@ -433,30 +433,40 @@ function StudentDetails() {
                   </div>
                 </div>
               ) : (
-                 <div className="flex flex-col gap-3">
-                  <p className="text-xs text-red-600">Student is waiting for your approval , kindly assign instructor and approve student request.</p>
-                <select
-                  name="teacher"
-                  id=""
-                  onChange={(e) => setTeacherId(e.target.value)}
-                  className="flex items-center gap-2 px-4 py-2 text-xs font-medium text-white transition-all duration-200 cursor-pointer md:px-6 md:py-3 bg-emerald-600 backdrop-blur-sm rounded-xl "
-                
-                >
-                  <option value="">Select Teacher</option>
-                  {teachers.map((teacher) => (
-                    <option key={teacher._id} value={teacher._id} className="flex items-center gap-2 px-4 py-2 text-xs font-medium text-white transition-all duration-200 cursor-pointer md:px-6 md:py-3 bg-emerald-800 backdrop-blur-sm rounded-xl "
-                >
-                      {teacher.name}
-                    </option>
-                  ))}
-                </select>
-                <button
-                  onClick={() => handleApprove(id)}
-                  className="flex items-center gap-2 px-4 py-2 mx-auto text-xs font-medium text-white transition-all duration-200 bg-orange-500 cursor-pointer w-fit md:px-6 md:py-3 backdrop-blur-sm rounded-xl hover:bg-emerald-600"
-                >
-                  <span>Approve Student</span>
-                </button>
-              </div>
+                <div className="flex flex-col gap-3">
+                  <p className="text-xs text-red-600">
+                    Student is waiting for your approval , kindly assign
+                    instructor and approve student request.
+                  </p>
+                  <select
+                    name="teacher"
+                    id=""
+                    onChange={(e) => setTeacherId(e.target.value)}
+                    className="flex items-center gap-2 px-4 py-2 text-xs font-medium text-white transition-all duration-200 cursor-pointer md:px-6 md:py-3 bg-emerald-600 backdrop-blur-sm rounded-xl "
+                  >
+                    <option value="">Select Teacher</option>
+                    {teachers.map(
+                      (teacher) =>
+                        teacher.name !== "Hamad Ahmad" && (
+                          <option
+                            key={teacher._id}
+                            value={teacher._id}
+                            className="flex items-center gap-2 px-4 py-2 text-xs font-medium text-white transition-all duration-200 cursor-pointer md:px-6 md:py-3 bg-emerald-800 backdrop-blur-sm rounded-xl "
+                          >
+                            {teacher.name === localStorage.getItem("name")
+                              ? `${teacher.name} (You)`
+                              : teacher.name}
+                          </option>
+                        )
+                    )}
+                  </select>
+                  <button
+                    onClick={() => handleApprove(id)}
+                    className="flex items-center gap-2 px-4 py-2 mx-auto text-xs font-medium text-white transition-all duration-200 bg-orange-500 cursor-pointer w-fit md:px-6 md:py-3 backdrop-blur-sm rounded-xl hover:bg-emerald-600"
+                  >
+                    <span>Approve Student</span>
+                  </button>
+                </div>
               )}
             </div>
             {/* Contact Information */}

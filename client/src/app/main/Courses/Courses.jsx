@@ -321,7 +321,7 @@ const Courses = () => {
                   <div className="relative z-10 px-4 py-6">
                     {/* Title with better typography */}
                     <div className="mb-2">
-                      <h3 className="mb-2 text-lg font-bold leading-tight text-gray-900 transition-colors line-clamp-2 group-hover:text-emerald-700">
+                      <h3 className="mb-2 text-lg font-bold leading-tight text-gray-900 transition-colors line-clamp-1 hover:line-clamp-2 group-hover:text-emerald-700">
                         {course.title}
                       </h3>
                       <p className="text-xs leading-relaxed text-gray-600 line-clamp-3">
@@ -426,7 +426,7 @@ const Courses = () => {
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
             <NavLink
               to={"/register-student"}
-              className="px-6 py-3 font-semibold text-green-600 transition-colors bg-white rounded-lg shadow-lg hover:bg-gray-100"
+              className="px-6 py-3 font-semibold  text-green-600 transition-colors bg-white rounded-lg shadow-lg hover:bg-gray-100"
             >
               Start Free Trial
             </NavLink>
