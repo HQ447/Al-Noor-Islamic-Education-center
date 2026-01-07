@@ -13,6 +13,10 @@ backend/node_modules/
 # ...BUT ALLOW the client env file
 !client/.env
 
+# Google Service Account credentials
+**/google-service-account.json
+backend/google-service-account.json
+
 # Build output
 frontend/build/
 backend/dist/

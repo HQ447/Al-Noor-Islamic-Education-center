@@ -281,9 +281,32 @@ const RegStudent = () => {
   };
 
   const handleCountrySelect = (countryName) => {
+    const countryCode = countryCodes[countryName];
+    let updatedWhatsapp = formData.whatsapp.trim();
+
+    // If country code exists, merge it with WhatsApp number
+    if (countryCode && countryCode !== "") {
+      const codeWithoutPlus = countryCode.replace("+", "");
+      const whatsappWithoutSpaces = updatedWhatsapp.replace(/\s/g, "");
+
+      // If WhatsApp is empty, set it to country code
+      if (!updatedWhatsapp) {
+        updatedWhatsapp = codeWithoutPlus;
+      }
+      // If WhatsApp doesn't start with the country code, prepend it
+      else if (!whatsappWithoutSpaces.startsWith(codeWithoutPlus)) {
+        // Remove any leading zeros, plus signs, or spaces
+        const cleanedNumber = whatsappWithoutSpaces.replace(/^\+?0*/, "");
+        updatedWhatsapp =
+          codeWithoutPlus + (cleanedNumber ? " " + cleanedNumber : "");
+      }
+      // If it already starts with the country code, keep it as is
+    }
+
     setFormData({
       ...formData,
       country: countryName,
+      whatsapp: updatedWhatsapp,
     });
     setIsCountryOpen(false);
     setCountrySearchQuery("");

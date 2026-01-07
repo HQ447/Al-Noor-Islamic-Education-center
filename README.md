@@ -1,4 +1,4 @@
-# 📖 Noor-ul-Quran – Online Islamic Learning Platform
+# 📖 Al Noor Islamic Education Center - International
 
 Noor-ul-Quran is a **MERN stack** web application designed to connect students with certified **Quranic expert instructors** for online learning.  
 The platform enables students to **register for courses**, attend **live Quranic and Islamic knowledge sessions**, and access learning resources.  
