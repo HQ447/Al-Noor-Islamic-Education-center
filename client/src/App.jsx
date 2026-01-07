@@ -27,8 +27,9 @@ import AllStudents from "./app/dashboard/AllStudents";
 import TeacherDetails from "./app/dashboard/TeacherDetails";
 import TeacherDetail from "./app/main/Teacher Details/TeacherDetail";
 import StudentDetails from "./app/dashboard/StudentDetails";
-
+import useGA from "./useGA";
 function App() {
+  useGA();
   return (
     <div className="">
       <Routes>

@@ -256,9 +256,14 @@ export const AdminsManagement = () => {
 
                 {/* Role badge */}
                 <div className="absolute z-20 px-3 py-1 text-xs font-bold text-white capitalize rounded-full shadow-md top-4 right-4 bg-gradient-to-r from-yellow-500 to-orange-500">
-                  🔰 {admin.role === "admin" ? "Teacher" : "Super Admin"}
+                  🔰{" "}
+                  {admin.role === "admin"
+                    ? "Teacher"
+                    : admin.name == "Hamad Ahmad"
+                    ? "Developer"
+                    : "Director"}
                 </div>
-               
+
                 {/* Main content with proper z-index */}
                 <div className="relative z-10">
                   <div className="flex flex-col items-center mb-6">
@@ -287,12 +292,11 @@ export const AdminsManagement = () => {
                         <Award className="w-3 h-3 mr-1" />
                         {admin.designation || "Teacher"}
                       </div>
-                       {admin.designation=="Manager" &&
-                <div className="px-3 py-1 text-xs font-semibold text-white rounded-full shadow-md bg-gradient-to-r from-yellow-500 to-orange-600">
-                         🔰 Only you can see this profile
-                </div>
-}
-
+                      {admin.designation == "Software Engineer" && (
+                        <div className="px-3 py-1 text-xs font-semibold text-white rounded-full shadow-md bg-gradient-to-r from-yellow-500 to-orange-600">
+                          🔰 Only you can see this profile
+                        </div>
+                      )}
                     </div>
                   </div>
 
