@@ -184,7 +184,9 @@ function TeacherDetails() {
               {/* Basic Info */}
               <div className="flex-1 text-center lg:text-left">
                 <h1 className="mb-2 text-2xl font-bold lg:text-3xl">
-                  {enhancedTeacher.name || "Teacher Name"}
+                  {enhancedTeacher.name === localStorage.getItem("name")
+                    ? `${enhancedTeacher.name} (You)`
+                    : enhancedTeacher.name}
                 </h1>
                 <p className="mb-2 text-sm text-emerald-100">
                   {enhancedTeacher.designation}

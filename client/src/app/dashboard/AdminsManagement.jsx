@@ -283,7 +283,9 @@ export const AdminsManagement = () => {
 
                     <div className="text-center">
                       <h3 className="mb-1 text-lg font-bold text-green-800">
-                        {admin.name}
+                        {admin.name === localStorage.getItem("name")
+                          ? `${admin.name} (You)`
+                          : admin.name}
                       </h3>
                       <p className="mb-3 text-sm text-green-600">
                         {admin.email}
