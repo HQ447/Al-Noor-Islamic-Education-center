@@ -445,7 +445,7 @@ function StudentDetails() {
                     <option value="">Select Teacher</option>
                     {teachers.map(
                       (teacher) =>
-                        teacher.designation !== "Software Engiineer" && (
+                        teacher.designation !== "Software Engineer" && (
                           <option
                             key={teacher._id}
                             value={teacher._id}
