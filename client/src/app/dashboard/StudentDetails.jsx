@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import {
   User,
   Mail,
@@ -21,6 +21,7 @@ import {
   Eye,
   Video,
   Badge,
+  Loader2,
 } from "lucide-react";
 import { FaWhatsapp, FaDollarSign } from "react-icons/fa";
 import { IoCheckmarkDoneCircle } from "react-icons/io5";
@@ -34,6 +35,8 @@ function StudentDetails() {
   const [teachers, setTeachers] = useState([]);
   const [teacherId, setTeacherId] = useState("");
   const [loading, setLoading] = useState(true);
+  const [approving, setApproving] = useState(false);
+  const [payingFee, setPayingFee] = useState(false);
   const [selectedView, setSelectedView] = useState("overview");
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const token = localStorage.getItem("token");
@@ -56,6 +59,7 @@ function StudentDetails() {
       alert("Please select a teacher");
       return;
     }
+    setApproving(true);
     try {
       const res = await fetch(
         `${BASE_URL}/admin/updateStatus/${studentId}/${teacherId}`,
@@ -77,25 +81,18 @@ function StudentDetails() {
               : student
           )
         );
-        fetchProfile();
+        await fetchProfile();
       } else {
         console.error("Failed to update student status");
+        alert("Failed to approve student. Please try again.");
       }
     } catch (error) {
       console.error("Error updating student status:", error);
-      // For demo, still update locally
-      setStudents((prev) =>
-        prev.map((student) =>
-          student._id === studentId || student.id === studentId
-            ? { ...student, status: "registered" }
-            : student
-        )
-      );
+      alert("An error occurred. Please try again.");
+    } finally {
+      setApproving(false);
     }
   };
-
-  const d = new Date();
-  const monthName = d.toLocaleString("en-US", { month: "long" });
 
   const FloatingElements = () => (
     <div className="fixed inset-0 overflow-hidden pointer-events-none">
@@ -117,6 +114,7 @@ function StudentDetails() {
       alert("Please enter days");
       return;
     }
+    setPayingFee(true);
     try {
       const res = await fetch(
         `${BASE_URL}/admin/updateStudentFee/${studentId}`,
@@ -139,12 +137,15 @@ function StudentDetails() {
       }
 
       console.log("Fee updated successfully");
+      setDays("0"); // Reset days input
 
       // Refresh students list
-      fetchProfile();
+      await fetchProfile();
     } catch (error) {
       console.error(error);
       alert("Something went wrong");
+    } finally {
+      setPayingFee(false);
     }
   };
 
@@ -191,19 +192,6 @@ function StudentDetails() {
       teacher.designation ||
       "Dedicated Quran teacher with passion for Islamic education and student development.",
   });
-
-  const getStudentStatusColor = (status) => {
-    switch (status?.toLowerCase()) {
-      case "active":
-        return "text-emerald-700 bg-emerald-100 border-emerald-300";
-      case "inactive":
-        return "text-gray-700 bg-gray-100 border-gray-300";
-      case "completed":
-        return "text-green-700 bg-green-100 border-green-300";
-      default:
-        return "text-blue-700 bg-blue-100 border-blue-300";
-    }
-  };
 
   if (loading) {
     return (
@@ -319,22 +307,17 @@ function StudentDetails() {
           {/* Navigation Tabs */}
           <div className="border-b border-emerald-200">
             <div className="flex overflow-x-auto">
-              {[{ key: "overview", label: "Overview", icon: Eye }].map(
-                ({ key, label, icon: Icon }) => (
-                  <button
-                    key={key}
-                    onClick={() => setSelectedView(key)}
-                    className={`flex items-center gap-2 text-xs md:text-sm  px-6 py-4 font-medium transition-all duration-200 border-b-2 whitespace-nowrap ${
-                      selectedView === key
-                        ? "text-emerald-600 border-emerald-600 bg-emerald-50"
-                        : "text-gray-600 border-transparent hover:text-emerald-600 hover:bg-emerald-50"
-                    }`}
-                  >
-                    <Icon className="w-4 h-4" />
-                    {label}
-                  </button>
-                )
-              )}
+              <button
+                onClick={() => setSelectedView("overview")}
+                className={`flex items-center gap-2 text-xs md:text-sm px-6 py-4 font-medium transition-all duration-200 border-b-2 whitespace-nowrap ${
+                  selectedView === "overview"
+                    ? "text-emerald-600 border-emerald-600 bg-emerald-50"
+                    : "text-gray-600 border-transparent hover:text-emerald-600 hover:bg-emerald-50"
+                }`}
+              >
+                <Eye className="w-4 h-4" />
+                Overview
+              </button>
             </div>
           </div>
         </div>
@@ -358,18 +341,33 @@ function StudentDetails() {
                       >
                         <input
                           type="number"
-                          className="flex items-center w-full gap-2 px-6 py-3 text-xs font-medium text-gray-700 transition-all duration-200 outline-none cursor-pointer bg-emerald-200 backdrop-blur-sm rounded-xl "
+                          value={days}
+                          disabled={payingFee}
+                          min="1"
+                          className="flex items-center w-full gap-2 px-6 py-3 text-xs font-medium text-gray-700 transition-all duration-200 outline-none bg-emerald-200 backdrop-blur-sm rounded-xl focus:ring-2 focus:ring-emerald-500 focus:bg-emerald-100 disabled:opacity-50 disabled:cursor-not-allowed"
                           placeholder="Enter days"
                           onChange={(e) => setDays(e.target.value)}
                         />
                         <button
                           onClick={() => updateFee(teacher._id)}
-                          className={` ${
-                            days == "" ? "bg-emerald-400" : "bg-emerald-600 "
-                          } flex w-full items-center gap-2  text-xs font-medium text-white transition-all duration-200 cursor-pointer px-6 py-2 backdrop-blur-sm rounded-xl hover:bg-emerald-500`}
+                          disabled={payingFee || days === "" || days === "0"}
+                          className={`${
+                            days == "" || days === "0" || payingFee
+                              ? "bg-emerald-400 cursor-not-allowed opacity-70"
+                              : "bg-emerald-600 hover:bg-emerald-500"
+                          } flex w-full items-center justify-center gap-2 text-xs font-medium text-white transition-all duration-200 px-6 py-2 backdrop-blur-sm rounded-xl disabled:hover:bg-emerald-400`}
                         >
-                          <FaDollarSign className="w-5 h-5" />
-                          Pay Fee
+                          {payingFee ? (
+                            <>
+                              <Loader2 className="w-4 h-4 animate-spin" />
+                              <span>Processing...</span>
+                            </>
+                          ) : (
+                            <>
+                              <FaDollarSign className="w-5 h-5" />
+                              <span>Pay Fee</span>
+                            </>
+                          )}
                         </button>
                       </div>
                       <div className={`text-xs    text-emerald-800`}>
@@ -447,7 +445,7 @@ function StudentDetails() {
                     <option value="">Select Teacher</option>
                     {teachers.map(
                       (teacher) =>
-                        teacher.name !== "Hamad Ahmad" && (
+                        teacher.designation !== "Software Engiineer" && (
                           <option
                             key={teacher._id}
                             value={teacher._id}
@@ -462,9 +460,24 @@ function StudentDetails() {
                   </select>
                   <button
                     onClick={() => handleApprove(id)}
-                    className="flex items-center gap-2 px-4 py-2 mx-auto text-xs font-medium text-white transition-all duration-200 bg-orange-500 cursor-pointer w-fit md:px-6 md:py-3 backdrop-blur-sm rounded-xl hover:bg-emerald-600"
+                    disabled={approving || !teacherId}
+                    className={`flex items-center justify-center gap-2 px-4 py-2 mx-auto text-xs font-medium text-white transition-all duration-200 w-fit md:px-6 md:py-3 backdrop-blur-sm rounded-xl ${
+                      approving || !teacherId
+                        ? "bg-orange-400 cursor-not-allowed opacity-70"
+                        : "bg-orange-500 hover:bg-emerald-600 cursor-pointer"
+                    } disabled:hover:bg-orange-400`}
                   >
-                    <span>Approve Student</span>
+                    {approving ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <span>Approving...</span>
+                      </>
+                    ) : (
+                      <>
+                        <CheckCircle className="w-4 h-4" />
+                        <span>Approve Student</span>
+                      </>
+                    )}
                   </button>
                 </div>
               )}
