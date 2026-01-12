@@ -93,7 +93,7 @@ function TeacherDetails() {
     fetchStudents();
   }, []);
 
-  // Mock additional teacher data - replace with actual API response fields
+
   const getEnhancedTeacherData = (teacher) => ({
     ...teacher,
     specialization: teacher.specialization || "Quran Recitation & Tajweed",
@@ -181,7 +181,6 @@ function TeacherDetails() {
                 </div>
               </div>
 
-              {/* Basic Info */}
               <div className="flex-1 text-center lg:text-left">
                 <h1 className="mb-2 text-2xl font-bold lg:text-3xl">
                   {enhancedTeacher.name === localStorage.getItem("name")
