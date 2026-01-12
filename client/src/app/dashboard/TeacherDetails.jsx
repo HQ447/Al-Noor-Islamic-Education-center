@@ -93,7 +93,7 @@ function TeacherDetails() {
     fetchStudents();
   }, []);
 
-  // Mock additional teacher data - replace with actualresponse fields
+
   const getEnhancedTeacherData = (teacher) => ({
     ...teacher,
     specialization: teacher.specialization || "Quran Recitation & Tajweed",
