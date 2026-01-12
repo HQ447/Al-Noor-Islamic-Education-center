@@ -47,7 +47,7 @@ app.use(express.json());
 const allowedOrigins = [
   "https://alnooredu.online",
   "https://www.alnooredu.online",
-  "http://localhost:5173",
+  // "http://localhost:5173",
 ];
 
 app.use(

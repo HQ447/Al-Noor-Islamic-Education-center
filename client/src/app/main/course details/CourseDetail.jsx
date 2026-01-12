@@ -8,6 +8,7 @@ import {
   CheckCircle,
 } from "lucide-react";
 import { useParams } from "react-router";
+import { NavLink } from "react-router-dom";
 
 function CourseDetail() {
   const [course, setCourse] = useState(null);
@@ -221,13 +222,13 @@ function CourseDetail() {
               <p className="mb-4 text-sm text-green-100">
                 Join thousands of students in this comprehensive course.
               </p>
-              <a
-                href="/register-student"
+              <NavLink
+                to={"/register-student"}
                 className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold transition-all transform bg-white rounded-lg md:px-6 md:py-3 text-emerald-600 hover:bg-gray-50 hover:shadow-lg hover:-translate-y-1"
               >
                 <CheckCircle className="flex-shrink-0 w-4 h-4 md:w-5 md:h-5" />
                 Enroll Now
-              </a>
+              </NavLink>
             </div>
           </div>
         </div>
@@ -261,13 +262,13 @@ function CourseDetail() {
               Join our community of learners and deepen your understanding of
               Islamic teachings with expert guidance.
             </p>
-            <a
-              href="/register-student"
+            <NavLink
+              to={"/register-student"}
               className="inline-flex items-center gap-2 px-6 py-3 text-sm font-bold transition-all transform bg-white text-emerald-600 rounded-xl hover:bg-gray-50 hover:shadow-lg hover:-translate-y-1"
             >
               <CheckCircle className="flex-shrink-0 w-4 h-4 md:w-6 md:h-6" />
               Begin Your Journey
-            </a>
+            </NavLink>
           </div>
         </div>
       </div>

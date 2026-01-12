@@ -365,11 +365,8 @@ const Courses = () => {
                     {/* Enhanced Price Section */}
                     <div className="flex items-center justify-between my-3">
                       <div className="text-right">
-                        <p className="text-xs font-medium tracking-wide text-gray-500 uppercase">
-                          Course Fee
-                        </p>
                         <p className="text-xs font-semibold text-emerald-600">
-                          💰 Best Value
+                          💰 Flexible Fee Plans
                         </p>
                       </div>
                     </div>

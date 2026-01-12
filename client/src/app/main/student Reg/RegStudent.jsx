@@ -745,7 +745,7 @@ const RegStudent = () => {
                           <option value="">Choose your course</option>
                           {courses.map((course, index) => (
                             <option key={index} value={course.title}>
-                              {course.title}
+                              {index + 1}. {course.title}
                             </option>
                           ))}
                         </select>
