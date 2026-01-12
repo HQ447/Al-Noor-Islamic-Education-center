@@ -5,7 +5,7 @@ import User from "../models/User.js";
 export const forgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
-    console.log(email)
+    console.log(email);
     const user = await User.findOne({ email });
     if (!user) return res.status(404).json({ message: "User not found" });
 
@@ -19,17 +19,17 @@ export const forgotPassword = async (req, res) => {
     <!-- Header -->
     <div style="background-color: #004225; color: #ffffff; padding: 20px; text-align: center;">
       <h1 style="margin: 0; font-size: 24px;">Al Noor Islamic Education Center</h1>
-      <p style="margin: 5px 0 0; font-size: 14px;">Distance Learning Platform</p>
+      <p style="margin: 5px 0 0; font-size: 14px;">alnooredu.online</p>
     </div>
 
     <!-- Body -->
     <div style="padding: 30px;">
       <h2 style="color: #333;">Hi ${user.name},</h2>
       <p style="font-size: 14px; color: #555;">
-       Your Password reset OTP is <span style="font-size:20px; font-weight:bold">${otp}</span>
+       Your password reset OTP is <span style="font-size:20px; font-weight:bold">${otp}</span>
       </p>
       <p style="font-size: 14px; color: #555;">
-        Please Keep Your OTP Secret This will automatically expire in 5 minutes.
+        Please keep Your OTP secret this will automatically expire in 5 minutes.
       </p>
     </div>
 
