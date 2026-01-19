@@ -836,7 +836,7 @@ const RegStudent = () => {
                   </p>
                   <p className="text-sm font-medium text-emerald-600">
                     May Allah bless your learning journey and grant you success
-                    in both worlds n
+                    in both worlds 
                   </p>
                 </div>
               </div>
