@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   Check,
   Star,
@@ -11,9 +11,8 @@ import {
 } from "lucide-react";
 import { NavLink, useLocation, useNavigate } from "react-router";
 
+
 function Fee() {
-  const [billingCycle, setBillingCycle] = useState("monthly");
-  const [selectedPlan, setSelectedPlan] = useState("");
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -21,21 +20,10 @@ function Fee() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [pathname]);
   const plans = [
-    
     {
       id: "monthly",
       name: "Online Quran Course",
       description: "Most popular choice for regular learning",
-      price: {
-        weekly: 30,
-        monthly: 60,
-        yearly: 799,
-      },
-      originalPrice: {
-        weekly: 40,
-        monthly: 90,
-        yearly: 1100,
-      },
       popular: true,
       features: [
         "3 Classes per week",
@@ -52,16 +40,6 @@ function Fee() {
       id: "yearly",
       name: "Arabic Learning ",
       description: "Best value for serious learners",
-      price: {
-        weekly: 35,
-        monthly: 70,
-        yearly: 699,
-      },
-      originalPrice: {
-        weekly: 50,
-        monthly: 100,
-        yearly: 1000,
-      },
       popular: false,
       features: [
         "Daily Classes Available",
@@ -80,56 +58,29 @@ function Fee() {
     {
       name: "Private Group Classes",
       description: "Family or friend group sessions",
-      price: "$15",
-      unit: "per person/class",
       icon: Users,
     },
     {
       name: "Intensive Courses",
       description: "Accelerated learning programs",
-      price: "$199",
-      unit: "per month",
       icon: Zap,
     },
     {
       name: "Specialized Workshops",
       description: "Tajweed, Arabic, Islamic Studies",
-      price: "$49",
-      unit: "per workshop",
       icon: BookOpen,
     },
     {
       name: "Consultation Session",
       description: "Learning path guidance",
-      price: "Free",
-      unit: "30 minutes",
       icon: Gift,
     },
   ];
 
-  const handlePlanSelect = (planId) => {
-    setSelectedPlan(planId);
+  const handlePlanSelect = () => {
     navigate("/register-student");
   };
 
-  const getBillingLabel = () => {
-    switch (billingCycle) {
-      case "weekly":
-        return "per week";
-      case "monthly":
-        return "per month";
-      case "yearly":
-        return "per year";
-      default:
-        return "per month";
-    }
-  };
-
-  const getDiscount = (plan) => {
-    const original = plan.originalPrice[billingCycle];
-    const current = plan.price[billingCycle];
-    return Math.round(((original - current) / original) * 100);
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-50">
@@ -155,25 +106,16 @@ function Fee() {
             <span className="block text-yellow-300">Learning Journey</span>
           </h1>
           <p className="max-w-3xl mx-auto mb-5 text-sm leading-relaxed text-green-100 md:text-lg">
-            Flexible pricing plans designed to make quality Islamic education
-            accessible to everyone
+            Flexible and negotiable fee plans - choose what works best for you.
+            Quality Islamic education accessible to everyone, regardless of budget.
           </p>
 
-          {/* Billing Toggle */}
-          <div className="inline-flex items-center p-1 bg-white rounded-full bg-opacity-20">
-            {["weekly", "monthly", "yearly"].map((cycle) => (
-              <button
-                key={cycle}
-                onClick={() => setBillingCycle(cycle)}
-                className={`px-6 py-2 rounded-full text-sm font-semibold transition-all ${
-                  billingCycle === cycle
-                    ? "bg-white text-green-600 shadow-lg"
-                    : "text-green-600 hover:bg-white hover:bg-opacity-10"
-                }`}
-              >
-                {cycle.charAt(0).toUpperCase() + cycle.slice(1)}
-              </button>
-            ))}
+          {/* Flexible Fee Notice */}
+          <div className="inline-flex items-center gap-2 px-6 py-3 bg-white rounded-full bg-opacity-20 backdrop-blur-sm">
+            <Gift className="w-5 h-5 text-yellow-300" />
+            <span className="text-sm font-semibold text-green-800 md:text-base">
+              💬 Discuss Your Preferred Fee During Registration
+            </span>
           </div>
         </div>
       </section>
@@ -182,18 +124,16 @@ function Fee() {
       <section className="flex items-center justify-center py-16 bg-white">
         <div className="px-6 mx-auto max-w-7xl lg:px-12">
           <div className="grid gap-8 lg:grid-cols-3">
-            {plans.map((plan, index) => {
+            {plans.map((plan) => {
               const IconComponent = plan.icon;
-              const discount = getDiscount(plan);
 
               return (
                 <div
                   key={plan.id}
-                  className={`relative rounded-2xl shadow-xl border-2 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 ${
-                    plan.popular
-                      ? "border-green-500 bg-gradient-to-br from-green-50 to-emerald-50"
-                      : "border-gray-200 bg-white hover:border-green-300"
-                  }`}
+                  className={`relative rounded-2xl shadow-xl border-2 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 ${plan.popular
+                    ? "border-green-500 bg-gradient-to-br from-green-50 to-emerald-50"
+                    : "border-gray-200 bg-white hover:border-green-300"
+                    }`}
                 >
                   {/* Popular Badge */}
                   {plan.popular && (
@@ -220,25 +160,23 @@ function Fee() {
                       </p>
                     </div>
 
-                    {/* Pricing */}
+                    {/* Flexible Pricing */}
                     <div className="mb-8 text-center">
-                      <div className="flex items-center justify-center gap-2 mb-2">
-                        <span className="text-2xl font-bold text-gray-800 md:text-3xl lg:text-4xl">
-                          ${plan.price[billingCycle]}
-                        </span>
-                        <div className="text-left">
-                          <div className="text-sm text-gray-500 line-through">
-                            ${plan.originalPrice[billingCycle]}
-                          </div>
-                          <div className="text-sm text-gray-600">
-                            {getBillingLabel()}
-                          </div>
+                      <div className="mb-4">
+                        <div className="inline-flex items-center justify-center w-16 h-16 mb-3 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full">
+                          <Gift className="w-8 h-8 text-green-600" />
                         </div>
+                        <h4 className="text-lg font-bold text-gray-800 mb-2">
+                          Flexible Fee Structure
+                        </h4>
+                        <p className="text-sm text-gray-600 mb-3 px-4">
+                          Choose a fee that fits your budget. We believe quality education
+                          should be accessible to everyone.
+                        </p>
                       </div>
-                      <div className="inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold text-red-800 bg-red-100 rounded-full">
-                        <Gift className="w-4 h-4" />
-                        Fee is Negotiable
-                       
+                      <div className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-green-800 bg-green-100 rounded-full">
+                        <Clock className="w-4 h-4" />
+                        Discuss Your Preferred Fee
                       </div>
                     </div>
 
@@ -261,12 +199,11 @@ function Fee() {
 
                     {/* CTA Button */}
                     <button
-                      onClick={() => handlePlanSelect(plan.id)}
-                      className={`w-full py-1 md:py-2 text-sm rounded-lg font-semibold transition-all ${
-                        plan.popular
-                          ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:from-green-700 hover:to-emerald-700 shadow-lg hover:shadow-xl"
-                          : "bg-gray-100 text-gray-800 hover:bg-gray-200 border-2 border-gray-200 hover:border-green-300"
-                      }`}
+                      onClick={handlePlanSelect}
+                      className={`w-full py-1 md:py-2 text-sm rounded-lg font-semibold transition-all ${plan.popular
+                        ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:from-green-700 hover:to-emerald-700 shadow-lg hover:shadow-xl"
+                        : "bg-gray-100 text-gray-800 hover:bg-gray-200 border-2 border-gray-200 hover:border-green-300"
+                        }`}
                     >
                       {plan.popular ? "Start Learning Now" : "Choose This Plan"}
                     </button>
@@ -313,11 +250,11 @@ function Fee() {
                       {service.description}
                     </p>
                     <div className="text-center">
-                      <span className="text-2xl font-bold text-green-600">
-                        {service.price}
+                      <span className="text-lg font-semibold text-green-600 mb-1 block">
+                        Flexible Pricing
                       </span>
-                      <div className="text-sm text-gray-500">
-                        {service.unit}
+                      <div className="text-xs text-gray-500 px-2">
+                        Discuss fee based on your needs
                       </div>
                     </div>
                   </div>

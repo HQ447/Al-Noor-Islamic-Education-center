@@ -45,10 +45,9 @@ app.use(express.json());
 
 // ✅ Allowed frontend domains
 const allowedOrigins = [
-  "https://islamic-center-beta.vercel.app",
   "https://alnooredu.online",
   "https://www.alnooredu.online",
-  //"http://localhost:5173"
+   //"http://localhost:5173",
 ];
 
 app.use(

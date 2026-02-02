@@ -82,9 +82,9 @@ const Analytics = () => {
         const coursesData = await coursesResponse.json();
         const adminsData = await adminsResponse.json();
 
-        console.log("Students API response:", studentsData);
-        console.log("Courses API response:", coursesData);
-        console.log("Admins API response:", adminsData);
+        // console.log("Students API response:", studentsData);
+        // console.log("Courses API response:", coursesData);
+        // console.log("Admins API response:", adminsData);
 
         // 🔹 STUDENTS
         let allStudents = [];
@@ -196,7 +196,7 @@ const Analytics = () => {
         <div className="flex items-center gap-3 mb-3">
           <div>
             <h2 className="text-xl font-bold text-transparent md:text-2xl bg-gradient-to-r from-green-700 to-emerald-800 bg-clip-text">
-              Welcome {name.split(" ")[0]} !
+              Welcome {name.split(" ")[0]}!
             </h2>
             <div className="flex items-center gap-2 mt-1">
               <Sparkles className="w-4 h-4 text-green-500" />

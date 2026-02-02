@@ -745,7 +745,7 @@ const RegStudent = () => {
                           <option value="">Choose your course</option>
                           {courses.map((course, index) => (
                             <option key={index} value={course.title}>
-                              {course.title}
+                              {index + 1}. {course.title}
                             </option>
                           ))}
                         </select>
@@ -836,7 +836,7 @@ const RegStudent = () => {
                   </p>
                   <p className="text-sm font-medium text-emerald-600">
                     May Allah bless your learning journey and grant you success
-                    in both worlds
+                    in both worlds 
                   </p>
                 </div>
               </div>
